@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.MainAuditRegistrationMapper">
+    <resultMap id="mainAuditRegistrationResultMap" type="com.adt.model.MainAuditRegistration">
+        <id column="ID" property="id"/>
+        <result column="A2PER" property="a2per"/>
+        <result column="A3PER" property="a3per"/>
+        <result column="ANAME" property="aname"/>
+        <result column="APER" property="aper"/>
+        <result column="APOS" property="apos"/>
+        <result column="AUDITNAME" property="auditname"/>
+        <result column="AUDITORS" property="auditors"/>
+        <result column="AUDITYEAR" property="audityear"/>
+        <result column="AUTYPE" property="autype"/>
+        <result column="CHECKERS" property="checkers"/>
+        <result column="CHNAME" property="chname"/>
+        <result column="CHPOS" property="chpos"/>
+        <result column="DEPID" property="depid"/>
+        <result column="DIRECTOR" property="director"/>
+        <result column="DPOS" property="dpos"/>
+        <result column="ENDDATE" property="enddate"/>
+        <result column="EXCELURLPLAN" property="excelurlplan"/>
+        <result column="EXCELURLPROCESS" property="excelurlprocess"/>
+        <result column="GENCODE" property="gencode"/>
+        <result column="ISACTIVE" property="isactive"/>
+        <result column="ISENABLED" property="isenabled"/>
+        <result column="ISREPORT" property="isreport"/>
+        <result column="M2PER" property="m2per"/>
+        <result column="M3PER" property="m3per"/>
+        <result column="MANAGER" property="manager"/>
+        <result column="MATTER" property="matter"/>
+        <result column="MPER" property="mper"/>
+        <result column="ORGCODE" property="orgcode"/>
+        <result column="ORGID" property="orgid"/>
+        <result column="ORGNAME" property="orgname"/>
+        <result column="ORGTYPE" property="orgtype"/>
+        <result column="PAYROLL" property="payroll"/>
+        <result column="REGNUM" property="regnum"/>
+        <result column="REPORTTYPE" property="reporttype"/>
+        <result column="STARTDATE" property="startdate"/>
+        <result column="STEPID" property="stepid"/>
+        <result column="T2PER" property="t2per"/>
+        <result column="T3PER" property="t3per"/>
+        <result column="TERGUULEH" property="terguuleh"/>
+        <result column="TPER" property="tper"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultMainAuditRegistration">
+        SELECT 
+              ID,
+              A2PER,
+              A3PER,
+              ANAME,
+              APER,
+              APOS,
+              AUDITNAME,
+              AUDITORS,
+              AUDITYEAR,
+              AUTYPE,
+              CHECKERS,
+              CHNAME,
+              CHPOS,
+              DEPID,
+              DIRECTOR,
+              DPOS,
+              ENDDATE,
+              EXCELURLPLAN,
+              EXCELURLPROCESS,
+              GENCODE,
+              ISACTIVE,
+              ISENABLED,
+              ISREPORT,
+              M2PER,
+              M3PER,
+              MANAGER,
+              MATTER,
+              MPER,
+              ORGCODE,
+              ORGID,
+              ORGNAME,
+              ORGTYPE,
+              PAYROLL,
+              REGNUM,
+              REPORTTYPE,
+              STARTDATE,
+              STEPID,
+              T2PER,
+              T3PER,
+              TERGUULEH,
+              TPER
+        FROM MAIN_AUDIT_REGISTRATION
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultMainAuditRegistration">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="a2per > 0">AND A2PER = #{a2per}</if>
+              <if test="a3per > 0">AND A3PER = #{a3per}</if>
+              <if test="aname != null">AND ANAME = #{aname}</if>
+              <if test="aper > 0">AND APER = #{aper}</if>
+              <if test="apos != null">AND APOS = #{apos}</if>
+              <if test="auditname != null">AND AUDITNAME = #{auditname}</if>
+              <if test="auditors != null">AND AUDITORS = #{auditors}</if>
+              <if test="audityear > 0">AND AUDITYEAR = #{audityear}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="checkers != null">AND CHECKERS = #{checkers}</if>
+              <if test="chname != null">AND CHNAME = #{chname}</if>
+              <if test="chpos != null">AND CHPOS = #{chpos}</if>
+              <if test="depid > 0">AND DEPID = #{depid}</if>
+              <if test="director != null">AND DIRECTOR = #{director}</if>
+              <if test="dpos != null">AND DPOS = #{dpos}</if>
+              <if test="enddate != null">AND ENDDATE = #{enddate}</if>
+              <if test="excelurlplan != null">AND EXCELURLPLAN = #{excelurlplan}</if>
+              <if test="excelurlprocess != null">AND EXCELURLPROCESS = #{excelurlprocess}</if>
+              <if test="gencode != null">AND GENCODE = #{gencode}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="isenabled > 0">AND ISENABLED = #{isenabled}</if>
+              <if test="isreport > 0">AND ISREPORT = #{isreport}</if>
+              <if test="m2per > 0">AND M2PER = #{m2per}</if>
+              <if test="m3per > 0">AND M3PER = #{m3per}</if>
+              <if test="manager != null">AND MANAGER = #{manager}</if>
+              <if test="matter != null">AND MATTER = #{matter}</if>
+              <if test="mper > 0">AND MPER = #{mper}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="orgid > 0">AND ORGID = #{orgid}</if>
+              <if test="orgname != null">AND ORGNAME = #{orgname}</if>
+              <if test="orgtype > 0">AND ORGTYPE = #{orgtype}</if>
+              <if test="payroll > 0">AND PAYROLL = #{payroll}</if>
+              <if test="regnum > 0">AND REGNUM = #{regnum}</if>
+              <if test="reporttype > 0">AND REPORTTYPE = #{reporttype}</if>
+              <if test="startdate != null">AND STARTDATE = #{startdate}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+              <if test="t2per > 0">AND T2PER = #{t2per}</if>
+              <if test="t3per > 0">AND T3PER = #{t3per}</if>
+              <if test="terguuleh != null">AND TERGUULEH = #{terguuleh}</if>
+              <if test="tper > 0">AND TPER = #{tper}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultMainAuditRegistration">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="mainAuditRegistrationResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM MAIN_AUDIT_REGISTRATION #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM MAIN_AUDIT_REGISTRATION ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="mainAuditRegistrationResultMap">
+        <![CDATA[
+			SELECT * FROM MAIN_AUDIT_REGISTRATION WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="mainAuditRegistrationResultMap">
+        <![CDATA[
+			SELECT * FROM MAIN_AUDIT_REGISTRATION order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="mainAuditRegistration" resultMap="mainAuditRegistrationResultMap">
+        <include refid="selectDefaultMainAuditRegistration" />     
+        <include refid="whereDefaultMainAuditRegistration" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="mainAuditRegistration" resultMap="mainAuditRegistrationResultMap">
+        <include refid="selectDefaultMainAuditRegistration" />     
+        <include refid="whereDefaultMainAuditRegistration" />
+        <include refid="orderByDefaultMainAuditRegistration" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="mainAuditRegistration">
+        INSERT INTO MAIN_AUDIT_REGISTRATION
+            (ID, A2PER, A3PER, ANAME, APER, APOS, AUDITNAME, AUDITORS, AUDITYEAR, AUTYPE, CHECKERS, CHNAME, CHPOS, DEPID, DIRECTOR, DPOS, ENDDATE, EXCELURLPLAN, EXCELURLPROCESS, GENCODE, ISACTIVE, ISENABLED, ISREPORT, M2PER, M3PER, MANAGER, MATTER, MPER, ORGCODE, ORGID, ORGNAME, ORGTYPE, PAYROLL, REGNUM, REPORTTYPE, STARTDATE, STEPID, T2PER, T3PER, TERGUULEH, TPER)
+        VALUES
+            (#{id}, #{a2per}, #{a3per}, #{aname}, #{aper}, #{apos}, #{auditname}, #{auditors}, #{audityear}, #{autype}, #{checkers}, #{chname}, #{chpos}, #{depid}, #{director}, #{dpos}, #{enddate}, #{excelurlplan}, #{excelurlprocess}, #{gencode}, #{isactive}, #{isenabled}, #{isreport}, #{m2per}, #{m3per}, #{manager}, #{matter}, #{mper}, #{orgcode}, #{orgid}, #{orgname}, #{orgtype}, #{payroll}, #{regnum}, #{reporttype}, #{startdate}, #{stepid}, #{t2per}, #{t3per}, #{terguuleh}, #{tper})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="mainAuditRegistration">
+        UPDATE MAIN_AUDIT_REGISTRATION
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="a2per > 0">A2PER = #{a2per},</if>
+              <if test="a3per > 0">A3PER = #{a3per},</if>
+              <if test="aname != null">ANAME = #{aname},</if>
+              <if test="aper > 0">APER = #{aper},</if>
+              <if test="apos != null">APOS = #{apos},</if>
+              <if test="auditname != null">AUDITNAME = #{auditname},</if>
+              <if test="auditors != null">AUDITORS = #{auditors},</if>
+              <if test="audityear > 0">AUDITYEAR = #{audityear},</if>
+              <if test="autype > 0">AUTYPE = #{autype},</if>
+              <if test="checkers != null">CHECKERS = #{checkers},</if>
+              <if test="chname != null">CHNAME = #{chname},</if>
+              <if test="chpos != null">CHPOS = #{chpos},</if>
+              <if test="depid > 0">DEPID = #{depid},</if>
+              <if test="director != null">DIRECTOR = #{director},</if>
+              <if test="dpos != null">DPOS = #{dpos},</if>
+              <if test="enddate != null">ENDDATE = #{enddate},</if>
+              <if test="excelurlplan != null">EXCELURLPLAN = #{excelurlplan},</if>
+              <if test="excelurlprocess != null">EXCELURLPROCESS = #{excelurlprocess},</if>
+              <if test="gencode != null">GENCODE = #{gencode},</if>
+              <if test="isactive > 0">ISACTIVE = #{isactive},</if>
+              <if test="isenabled > 0">ISENABLED = #{isenabled},</if>
+              <if test="isreport > 0">ISREPORT = #{isreport},</if>
+              <if test="m2per > 0">M2PER = #{m2per},</if>
+              <if test="m3per > 0">M3PER = #{m3per},</if>
+              <if test="manager != null">MANAGER = #{manager},</if>
+              <if test="matter != null">MATTER = #{matter},</if>
+              <if test="mper > 0">MPER = #{mper},</if>
+              <if test="orgcode != null">ORGCODE = #{orgcode},</if>
+              <if test="orgid > 0">ORGID = #{orgid},</if>
+              <if test="orgname != null">ORGNAME = #{orgname},</if>
+              <if test="orgtype > 0">ORGTYPE = #{orgtype},</if>
+              <if test="payroll > 0">PAYROLL = #{payroll},</if>
+              <if test="regnum > 0">REGNUM = #{regnum},</if>
+              <if test="reporttype > 0">REPORTTYPE = #{reporttype},</if>
+              <if test="startdate != null">STARTDATE = #{startdate},</if>
+              <if test="stepid > 0">STEPID = #{stepid},</if>
+              <if test="t2per > 0">T2PER = #{t2per},</if>
+              <if test="t3per > 0">T3PER = #{t3per},</if>
+              <if test="terguuleh != null">TERGUULEH = #{terguuleh},</if>
+              <if test="tper > 0">TPER = #{tper},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="a2per > 0">AND A2PER = #{a2per}</if>
+              <if test="a3per > 0">AND A3PER = #{a3per}</if>
+              <if test="aname != null">AND ANAME = #{aname}</if>
+              <if test="aper > 0">AND APER = #{aper}</if>
+              <if test="apos != null">AND APOS = #{apos}</if>
+              <if test="auditname != null">AND AUDITNAME = #{auditname}</if>
+              <if test="auditors != null">AND AUDITORS = #{auditors}</if>
+              <if test="audityear > 0">AND AUDITYEAR = #{audityear}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="checkers != null">AND CHECKERS = #{checkers}</if>
+              <if test="chname != null">AND CHNAME = #{chname}</if>
+              <if test="chpos != null">AND CHPOS = #{chpos}</if>
+              <if test="depid > 0">AND DEPID = #{depid}</if>
+              <if test="director != null">AND DIRECTOR = #{director}</if>
+              <if test="dpos != null">AND DPOS = #{dpos}</if>
+              <if test="enddate != null">AND ENDDATE = #{enddate}</if>
+              <if test="excelurlplan != null">AND EXCELURLPLAN = #{excelurlplan}</if>
+              <if test="excelurlprocess != null">AND EXCELURLPROCESS = #{excelurlprocess}</if>
+              <if test="gencode != null">AND GENCODE = #{gencode}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="isenabled > 0">AND ISENABLED = #{isenabled}</if>
+              <if test="isreport > 0">AND ISREPORT = #{isreport}</if>
+              <if test="m2per > 0">AND M2PER = #{m2per}</if>
+              <if test="m3per > 0">AND M3PER = #{m3per}</if>
+              <if test="manager != null">AND MANAGER = #{manager}</if>
+              <if test="matter != null">AND MATTER = #{matter}</if>
+              <if test="mper > 0">AND MPER = #{mper}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="orgid > 0">AND ORGID = #{orgid}</if>
+              <if test="orgname != null">AND ORGNAME = #{orgname}</if>
+              <if test="orgtype > 0">AND ORGTYPE = #{orgtype}</if>
+              <if test="payroll > 0">AND PAYROLL = #{payroll}</if>
+              <if test="regnum > 0">AND REGNUM = #{regnum}</if>
+              <if test="reporttype > 0">AND REPORTTYPE = #{reporttype}</if>
+              <if test="startdate != null">AND STARTDATE = #{startdate}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+              <if test="t2per > 0">AND T2PER = #{t2per}</if>
+              <if test="t3per > 0">AND T3PER = #{t3per}</if>
+              <if test="terguuleh != null">AND TERGUULEH = #{terguuleh}</if>
+              <if test="tper > 0">AND TPER = #{tper}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="mainAuditRegistration">
+        DELETE FROM MAIN_AUDIT_REGISTRATION
+			<include refid="whereDefaultMainAuditRegistration"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

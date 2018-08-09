@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutAuditLevelMapper">
+    <resultMap id="lutAuditLevelResultMap" type="com.adt.model.LutAuditLevel">
+        <id column="ID" property="id"/>
+        <result column="LEVELNAME" property="levelname"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutAuditLevel">
+        SELECT 
+              ID,
+              LEVELNAME
+        FROM LUT_AUDIT_LEVEL
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutAuditLevel">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="levelname != null">AND LEVELNAME = #{levelname}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutAuditLevel">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutAuditLevelResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_AUDIT_LEVEL #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_AUDIT_LEVEL ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutAuditLevelResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_AUDIT_LEVEL WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutAuditLevelResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_AUDIT_LEVEL order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutAuditLevel" resultMap="lutAuditLevelResultMap">
+        <include refid="selectDefaultLutAuditLevel" />     
+        <include refid="whereDefaultLutAuditLevel" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutAuditLevel" resultMap="lutAuditLevelResultMap">
+        <include refid="selectDefaultLutAuditLevel" />     
+        <include refid="whereDefaultLutAuditLevel" />
+        <include refid="orderByDefaultLutAuditLevel" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutAuditLevel">
+        INSERT INTO LUT_AUDIT_LEVEL
+            (ID, LEVELNAME)
+        VALUES
+            (#{id}, #{levelname})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutAuditLevel">
+        UPDATE LUT_AUDIT_LEVEL
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="levelname != null">LEVELNAME = #{levelname},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="levelname != null">AND LEVELNAME = #{levelname}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutAuditLevel">
+        DELETE FROM LUT_AUDIT_LEVEL
+			<include refid="whereDefaultLutAuditLevel"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

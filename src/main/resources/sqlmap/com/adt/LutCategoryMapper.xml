@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutCategoryMapper">
+    <resultMap id="lutCategoryResultMap" type="com.adt.model.LutCategory">
+        <id column="ID" property="id"/>
+        <result column="CATEGORYNAME" property="categoryname"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutCategory">
+        SELECT 
+              ID,
+              CATEGORYNAME
+        FROM LUT_CATEGORY
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutCategory">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="categoryname != null">AND CATEGORYNAME = #{categoryname}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutCategory">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutCategoryResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_CATEGORY #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_CATEGORY ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutCategoryResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_CATEGORY WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutCategoryResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_CATEGORY order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutCategory" resultMap="lutCategoryResultMap">
+        <include refid="selectDefaultLutCategory" />     
+        <include refid="whereDefaultLutCategory" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutCategory" resultMap="lutCategoryResultMap">
+        <include refid="selectDefaultLutCategory" />     
+        <include refid="whereDefaultLutCategory" />
+        <include refid="orderByDefaultLutCategory" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutCategory">
+        INSERT INTO LUT_CATEGORY
+            (ID, CATEGORYNAME)
+        VALUES
+            (#{id}, #{categoryname})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutCategory">
+        UPDATE LUT_CATEGORY
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="categoryname != null">CATEGORYNAME = #{categoryname},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="categoryname != null">AND CATEGORYNAME = #{categoryname}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutCategory">
+        DELETE FROM LUT_CATEGORY
+			<include refid="whereDefaultLutCategory"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

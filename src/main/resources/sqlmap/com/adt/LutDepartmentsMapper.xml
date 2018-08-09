@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutDepartmentsMapper">
+    <resultMap id="lutDepartmentsResultMap" type="com.adt.model.LutDepartments">
+        <id column="ID" property="id"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="AUDIT_COUNT" property="auditCount"/>
+        <result column="AUTYPE" property="autype"/>
+        <result column="DEPARTMENTNAME" property="departmentname"/>
+        <result column="EMAIL" property="email"/>
+        <result column="ISACTIVE" property="isactive"/>
+        <result column="ISMULTIPLE" property="ismultiple"/>
+        <result column="ISSTATE" property="isstate"/>
+        <result column="LICEXPIREDATE" property="licexpiredate"/>
+        <result column="LICNUM" property="licnum"/>
+        <result column="PARENTID" property="parentid"/>
+        <result column="PHONE" property="phone"/>
+        <result column="PLAN" property="plan"/>
+        <result column="REG" property="reg"/>
+        <result column="SHORTNAME" property="shortname"/>
+        <result column="WEB" property="web"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutDepartments">
+        SELECT 
+              ID,
+              ADDRESS,
+              AUDIT_COUNT,
+              AUTYPE,
+              DEPARTMENTNAME,
+              EMAIL,
+              ISACTIVE,
+              ISMULTIPLE,
+              ISSTATE,
+              LICEXPIREDATE,
+              LICNUM,
+              PARENTID,
+              PHONE,
+              PLAN,
+              REG,
+              SHORTNAME,
+              WEB
+        FROM LUT_DEPARTMENTS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutDepartments">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="address != null">AND ADDRESS = #{address}</if>
+              <if test="auditCount > 0">AND AUDIT_COUNT = #{auditCount}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="departmentname != null">AND DEPARTMENTNAME = #{departmentname}</if>
+              <if test="email != null">AND EMAIL = #{email}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="ismultiple > 0">AND ISMULTIPLE = #{ismultiple}</if>
+              <if test="isstate > 0">AND ISSTATE = #{isstate}</if>
+              <if test="licexpiredate != null">AND LICEXPIREDATE = #{licexpiredate}</if>
+              <if test="licnum != null">AND LICNUM = #{licnum}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+              <if test="phone != null">AND PHONE = #{phone}</if>
+              <if test="plan > 0">AND PLAN = #{plan}</if>
+              <if test="reg > 0">AND REG = #{reg}</if>
+              <if test="shortname != null">AND SHORTNAME = #{shortname}</if>
+              <if test="web != null">AND WEB = #{web}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutDepartments">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutDepartmentsResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_DEPARTMENTS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_DEPARTMENTS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutDepartmentsResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_DEPARTMENTS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutDepartmentsResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_DEPARTMENTS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutDepartments" resultMap="lutDepartmentsResultMap">
+        <include refid="selectDefaultLutDepartments" />     
+        <include refid="whereDefaultLutDepartments" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutDepartments" resultMap="lutDepartmentsResultMap">
+        <include refid="selectDefaultLutDepartments" />     
+        <include refid="whereDefaultLutDepartments" />
+        <include refid="orderByDefaultLutDepartments" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutDepartments">
+        INSERT INTO LUT_DEPARTMENTS
+            (ID, ADDRESS, AUDIT_COUNT, AUTYPE, DEPARTMENTNAME, EMAIL, ISACTIVE, ISMULTIPLE, ISSTATE, LICEXPIREDATE, LICNUM, PARENTID, PHONE, PLAN, REG, SHORTNAME, WEB)
+        VALUES
+            (#{id}, #{address}, #{auditCount}, #{autype}, #{departmentname}, #{email}, #{isactive}, #{ismultiple}, #{isstate}, #{licexpiredate}, #{licnum}, #{parentid}, #{phone}, #{plan}, #{reg}, #{shortname}, #{web})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutDepartments">
+        UPDATE LUT_DEPARTMENTS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="address != null">ADDRESS = #{address},</if>
+              <if test="auditCount > 0">AUDIT_COUNT = #{auditCount},</if>
+              <if test="autype > 0">AUTYPE = #{autype},</if>
+              <if test="departmentname != null">DEPARTMENTNAME = #{departmentname},</if>
+              <if test="email != null">EMAIL = #{email},</if>
+              <if test="isactive > 0">ISACTIVE = #{isactive},</if>
+              <if test="ismultiple > 0">ISMULTIPLE = #{ismultiple},</if>
+              <if test="isstate > 0">ISSTATE = #{isstate},</if>
+              <if test="licexpiredate != null">LICEXPIREDATE = #{licexpiredate},</if>
+              <if test="licnum != null">LICNUM = #{licnum},</if>
+              <if test="parentid > 0">PARENTID = #{parentid},</if>
+              <if test="phone != null">PHONE = #{phone},</if>
+              <if test="plan > 0">PLAN = #{plan},</if>
+              <if test="reg > 0">REG = #{reg},</if>
+              <if test="shortname != null">SHORTNAME = #{shortname},</if>
+              <if test="web != null">WEB = #{web},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="address != null">AND ADDRESS = #{address}</if>
+              <if test="auditCount > 0">AND AUDIT_COUNT = #{auditCount}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="departmentname != null">AND DEPARTMENTNAME = #{departmentname}</if>
+              <if test="email != null">AND EMAIL = #{email}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="ismultiple > 0">AND ISMULTIPLE = #{ismultiple}</if>
+              <if test="isstate > 0">AND ISSTATE = #{isstate}</if>
+              <if test="licexpiredate != null">AND LICEXPIREDATE = #{licexpiredate}</if>
+              <if test="licnum != null">AND LICNUM = #{licnum}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+              <if test="phone != null">AND PHONE = #{phone}</if>
+              <if test="plan > 0">AND PLAN = #{plan}</if>
+              <if test="reg > 0">AND REG = #{reg}</if>
+              <if test="shortname != null">AND SHORTNAME = #{shortname}</if>
+              <if test="web != null">AND WEB = #{web}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutDepartments">
+        DELETE FROM LUT_DEPARTMENTS
+			<include refid="whereDefaultLutDepartments"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

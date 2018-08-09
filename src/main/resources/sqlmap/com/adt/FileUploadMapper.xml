@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.FileUploadMapper">
+    <resultMap id="fileUploadResultMap" type="com.adt.model.FileUpload">
+        <id column="ID" property="id"/>
+        <result column="AAN" property="aan"/>
+        <result column="AUTYPE" property="autype"/>
+        <result column="FILENAME" property="filename"/>
+        <result column="FILENAME_ADMIN" property="filenameAdmin"/>
+        <result column="FILESIZE" property="filesize"/>
+        <result column="FILESIZE_ADMIN" property="filesizeAdmin"/>
+        <result column="FILEURL" property="fileurl"/>
+        <result column="FILEURL_ADMIN" property="fileurlAdmin"/>
+        <result column="MIMETYPE" property="mimetype"/>
+        <result column="MIMETYPE_ADMIN" property="mimetypeAdmin"/>
+        <result column="NAME" property="name"/>
+        <result column="NAME_ADMIN" property="nameAdmin"/>
+        <result column="PAYROLL" property="payroll"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultFileUpload">
+        SELECT
+              ID,
+              AAN,
+              AUTYPE,
+              FILENAME,
+              FILENAME_ADMIN,
+              FILESIZE,
+              FILESIZE_ADMIN,
+              FILEURL,
+              FILEURL_ADMIN,
+              MIMETYPE,
+              MIMETYPE_ADMIN,
+              NAME,
+              NAME_ADMIN,
+              PAYROLL
+        FROM FILE_UPLOAD
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultFileUpload">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="aan > 0">AND AAN = #{aan}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="filename != null">AND FILENAME = #{filename}</if>
+              <if test="filenameAdmin != null">AND FILENAME_ADMIN = #{filenameAdmin}</if>
+              <if test="filesize > 0">AND FILESIZE = #{filesize}</if>
+              <if test="filesizeAdmin > 0">AND FILESIZE_ADMIN = #{filesizeAdmin}</if>
+              <if test="fileurl != null">AND FILEURL = #{fileurl}</if>
+              <if test="fileurlAdmin != null">AND FILEURL_ADMIN = #{fileurlAdmin}</if>
+              <if test="mimetype != null">AND MIMETYPE = #{mimetype}</if>
+              <if test="mimetypeAdmin != null">AND MIMETYPE_ADMIN = #{mimetypeAdmin}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+              <if test="nameAdmin != null">AND NAME_ADMIN = #{nameAdmin}</if>
+              <if test="payroll > 0">AND PAYROLL = #{payroll}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultFileUpload">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="fileUploadResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM FILE_UPLOAD #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM FILE_UPLOAD ${searchQuery}
+        ]]>
+    </select>
+
+     <!--find by id-->
+    <select id="findById" resultMap="fileUploadResultMap">
+        <![CDATA[
+			SELECT * FROM FILE_UPLOAD WHERE id = #{id}
+        ]]>
+    </select>
+
+     <!--list by id-->
+    <select id="findAll" resultMap="fileUploadResultMap">
+        <![CDATA[
+			SELECT * FROM FILE_UPLOAD order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="fileUpload" resultMap="fileUploadResultMap">
+        <include refid="selectDefaultFileUpload" />
+        <include refid="whereDefaultFileUpload" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="fileUpload" resultMap="fileUploadResultMap">
+        <include refid="selectDefaultFileUpload" />
+        <include refid="whereDefaultFileUpload" />
+        <include refid="orderByDefaultFileUpload" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="fileUpload">
+        INSERT INTO FILE_UPLOAD
+            (ID, AAN, AUTYPE, FILENAME, FILENAME_ADMIN, FILESIZE, FILESIZE_ADMIN, FILEURL, FILEURL_ADMIN, MIMETYPE, MIMETYPE_ADMIN, NAME, NAME_ADMIN, PAYROLL)
+        VALUES
+            (#{id}, #{aan}, #{autype}, #{filename}, #{filenameAdmin}, #{filesize}, #{filesizeAdmin}, #{fileurl}, #{fileurlAdmin}, #{mimetype}, #{mimetypeAdmin}, #{name}, #{nameAdmin}, #{payroll})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="fileUpload">
+        UPDATE FILE_UPLOAD
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="aan > 0">AAN = #{aan},</if>
+              <if test="autype > 0">AUTYPE = #{autype},</if>
+              <if test="filename != null">FILENAME = #{filename},</if>
+              <if test="filenameAdmin != null">FILENAME_ADMIN = #{filenameAdmin},</if>
+              <if test="filesize > 0">FILESIZE = #{filesize},</if>
+              <if test="filesizeAdmin > 0">FILESIZE_ADMIN = #{filesizeAdmin},</if>
+              <if test="fileurl != null">FILEURL = #{fileurl},</if>
+              <if test="fileurlAdmin != null">FILEURL_ADMIN = #{fileurlAdmin},</if>
+              <if test="mimetype != null">MIMETYPE = #{mimetype},</if>
+              <if test="mimetypeAdmin != null">MIMETYPE_ADMIN = #{mimetypeAdmin},</if>
+              <if test="name != null">NAME = #{name},</if>
+              <if test="nameAdmin != null">NAME_ADMIN = #{nameAdmin},</if>
+              <if test="payroll > 0">PAYROLL = #{payroll},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="aan > 0">AND AAN = #{aan}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="filename != null">AND FILENAME = #{filename}</if>
+              <if test="filenameAdmin != null">AND FILENAME_ADMIN = #{filenameAdmin}</if>
+              <if test="filesize > 0">AND FILESIZE = #{filesize}</if>
+              <if test="filesizeAdmin > 0">AND FILESIZE_ADMIN = #{filesizeAdmin}</if>
+              <if test="fileurl != null">AND FILEURL = #{fileurl}</if>
+              <if test="fileurlAdmin != null">AND FILEURL_ADMIN = #{fileurlAdmin}</if>
+              <if test="mimetype != null">AND MIMETYPE = #{mimetype}</if>
+              <if test="mimetypeAdmin != null">AND MIMETYPE_ADMIN = #{mimetypeAdmin}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+              <if test="nameAdmin != null">AND NAME_ADMIN = #{nameAdmin}</if>
+              <if test="payroll > 0">AND PAYROLL = #{payroll}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="fileUpload">
+        DELETE FROM FILE_UPLOAD
+			<include refid="whereDefaultFileUpload"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.FinCt3aMapper">
+    <resultMap id="finCt3aResultMap" type="com.adt.model.FinCt3a">
+        <id column="ID" property="id"/>
+        <result column="CYEAR" property="cyear"/>
+        <result column="DATA1" property="data1"/>
+        <result column="DATA2" property="data2"/>
+        <result column="DATA3" property="data3"/>
+        <result column="DATA4" property="data4"/>
+        <result column="ORGCATID" property="orgcatid"/>
+        <result column="ORGCODE" property="orgcode"/>
+        <result column="PLANID" property="planid"/>
+        <result column="STEPID" property="stepid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultFinCt3a">
+        SELECT 
+              ID,
+              CYEAR,
+              DATA1,
+              DATA2,
+              DATA3,
+              DATA4,
+              ORGCATID,
+              ORGCODE,
+              PLANID,
+              STEPID
+        FROM FIN_CT3A
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultFinCt3a">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultFinCt3a">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="finCt3aResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM FIN_CT3A #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM FIN_CT3A ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="finCt3aResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_CT3A WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="finCt3aResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_CT3A order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="finCt3a" resultMap="finCt3aResultMap">
+        <include refid="selectDefaultFinCt3a" />     
+        <include refid="whereDefaultFinCt3a" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="finCt3a" resultMap="finCt3aResultMap">
+        <include refid="selectDefaultFinCt3a" />     
+        <include refid="whereDefaultFinCt3a" />
+        <include refid="orderByDefaultFinCt3a" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="finCt3a">
+        INSERT INTO FIN_CT3A
+            (ID, CYEAR, DATA1, DATA2, DATA3, DATA4, ORGCATID, ORGCODE, PLANID, STEPID)
+        VALUES
+            (#{id}, #{cyear}, #{data1}, #{data2}, #{data3}, #{data4}, #{orgcatid}, #{orgcode}, #{planid}, #{stepid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="finCt3a">
+        UPDATE FIN_CT3A
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="cyear != null">CYEAR = #{cyear},</if>
+              <if test="data1 != null">DATA1 = #{data1},</if>
+              <if test="data2 != null">DATA2 = #{data2},</if>
+              <if test="data3 != null">DATA3 = #{data3},</if>
+              <if test="data4 != null">DATA4 = #{data4},</if>
+              <if test="orgcatid > 0">ORGCATID = #{orgcatid},</if>
+              <if test="orgcode != null">ORGCODE = #{orgcode},</if>
+              <if test="planid > 0">PLANID = #{planid},</if>
+              <if test="stepid > 0">STEPID = #{stepid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="finCt3a">
+        DELETE FROM FIN_CT3A
+			<include refid="whereDefaultFinCt3a"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

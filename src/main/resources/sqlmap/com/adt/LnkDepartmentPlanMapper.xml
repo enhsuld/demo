@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkDepartmentPlanMapper">
+    <resultMap id="lnkDepartmentPlanResultMap" type="com.adt.model.LnkDepartmentPlan">
+        <id column="ID" property="id"/>
+        <result column="AUDIT_COUNT" property="auditCount"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="ORGID" property="orgid"/>
+        <result column="PLANID" property="planid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkDepartmentPlan">
+        SELECT 
+              ID,
+              AUDIT_COUNT,
+              CREATE_DATE,
+              ORGID,
+              PLANID
+        FROM LNK_DEPARTMENT_PLAN
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkDepartmentPlan">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="auditCount > 0">AND AUDIT_COUNT = #{auditCount}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="orgid > 0">AND ORGID = #{orgid}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkDepartmentPlan">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkDepartmentPlanResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_DEPARTMENT_PLAN #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_DEPARTMENT_PLAN ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkDepartmentPlanResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_DEPARTMENT_PLAN WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkDepartmentPlanResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_DEPARTMENT_PLAN order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkDepartmentPlan" resultMap="lnkDepartmentPlanResultMap">
+        <include refid="selectDefaultLnkDepartmentPlan" />     
+        <include refid="whereDefaultLnkDepartmentPlan" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkDepartmentPlan" resultMap="lnkDepartmentPlanResultMap">
+        <include refid="selectDefaultLnkDepartmentPlan" />     
+        <include refid="whereDefaultLnkDepartmentPlan" />
+        <include refid="orderByDefaultLnkDepartmentPlan" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkDepartmentPlan">
+        INSERT INTO LNK_DEPARTMENT_PLAN
+            (ID, AUDIT_COUNT, CREATE_DATE, ORGID, PLANID)
+        VALUES
+            (#{id}, #{auditCount}, #{createDate}, #{orgid}, #{planid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkDepartmentPlan">
+        UPDATE LNK_DEPARTMENT_PLAN
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="auditCount > 0">AUDIT_COUNT = #{auditCount},</if>
+              <if test="createDate != null">CREATE_DATE = #{createDate},</if>
+              <if test="orgid > 0">ORGID = #{orgid},</if>
+              <if test="planid > 0">PLANID = #{planid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="auditCount > 0">AND AUDIT_COUNT = #{auditCount}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="orgid > 0">AND ORGID = #{orgid}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkDepartmentPlan">
+        DELETE FROM LNK_DEPARTMENT_PLAN
+			<include refid="whereDefaultLnkDepartmentPlan"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

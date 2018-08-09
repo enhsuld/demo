@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkAuditFilesMapper">
+    <resultMap id="lnkAuditFilesResultMap" type="com.adt.model.LnkAuditFiles">
+        <id column="ID" property="id"/>
+        <result column="APPID" property="appid"/>
+        <result column="DESCRIPTION" property="description"/>
+        <result column="FCOMMENT" property="fcomment"/>
+        <result column="FILENAME" property="filename"/>
+        <result column="FILEURL" property="fileurl"/>
+        <result column="FNAME" property="fname"/>
+        <result column="FSIZE" property="fsize"/>
+        <result column="MIMETYPE" property="mimetype"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkAuditFiles">
+        SELECT 
+              ID,
+              APPID,
+              DESCRIPTION,
+              FCOMMENT,
+              FILENAME,
+              FILEURL,
+              FNAME,
+              FSIZE,
+              MIMETYPE
+        FROM LNK_AUDIT_FILES
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkAuditFiles">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="description != null">AND DESCRIPTION = #{description}</if>
+              <if test="fcomment != null">AND FCOMMENT = #{fcomment}</if>
+              <if test="filename != null">AND FILENAME = #{filename}</if>
+              <if test="fileurl != null">AND FILEURL = #{fileurl}</if>
+              <if test="fname != null">AND FNAME = #{fname}</if>
+              <if test="fsize > 0">AND FSIZE = #{fsize}</if>
+              <if test="mimetype != null">AND MIMETYPE = #{mimetype}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkAuditFiles">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkAuditFilesResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_AUDIT_FILES #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_AUDIT_FILES ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkAuditFilesResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_FILES WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkAuditFilesResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_FILES order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkAuditFiles" resultMap="lnkAuditFilesResultMap">
+        <include refid="selectDefaultLnkAuditFiles" />     
+        <include refid="whereDefaultLnkAuditFiles" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkAuditFiles" resultMap="lnkAuditFilesResultMap">
+        <include refid="selectDefaultLnkAuditFiles" />     
+        <include refid="whereDefaultLnkAuditFiles" />
+        <include refid="orderByDefaultLnkAuditFiles" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkAuditFiles">
+        INSERT INTO LNK_AUDIT_FILES
+            (ID, APPID, DESCRIPTION, FCOMMENT, FILENAME, FILEURL, FNAME, FSIZE, MIMETYPE)
+        VALUES
+            (#{id}, #{appid}, #{description}, #{fcomment}, #{filename}, #{fileurl}, #{fname}, #{fsize}, #{mimetype})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkAuditFiles">
+        UPDATE LNK_AUDIT_FILES
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="appid > 0">APPID = #{appid},</if>
+              <if test="description != null">DESCRIPTION = #{description},</if>
+              <if test="fcomment != null">FCOMMENT = #{fcomment},</if>
+              <if test="filename != null">FILENAME = #{filename},</if>
+              <if test="fileurl != null">FILEURL = #{fileurl},</if>
+              <if test="fname != null">FNAME = #{fname},</if>
+              <if test="fsize > 0">FSIZE = #{fsize},</if>
+              <if test="mimetype != null">MIMETYPE = #{mimetype},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="description != null">AND DESCRIPTION = #{description}</if>
+              <if test="fcomment != null">AND FCOMMENT = #{fcomment}</if>
+              <if test="filename != null">AND FILENAME = #{filename}</if>
+              <if test="fileurl != null">AND FILEURL = #{fileurl}</if>
+              <if test="fname != null">AND FNAME = #{fname}</if>
+              <if test="fsize > 0">AND FSIZE = #{fsize}</if>
+              <if test="mimetype != null">AND MIMETYPE = #{mimetype}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkAuditFiles">
+        DELETE FROM LNK_AUDIT_FILES
+			<include refid="whereDefaultLnkAuditFiles"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

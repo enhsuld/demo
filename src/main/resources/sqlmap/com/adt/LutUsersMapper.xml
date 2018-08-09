@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutUsersMapper">
+    <resultMap id="lutUsersResultMap" type="com.adt.model.LutUsers">
+        <id column="ID" property="id"/>
+        <result column="AUTYPE" property="autype"/>
+        <result column="DEPARTMENTID" property="departmentid"/>
+        <result column="EMAIL" property="email"/>
+        <result column="FAMILYNAME" property="familyname"/>
+        <result column="GIVENNAME" property="givenname"/>
+        <result column="ISACTIVE" property="isactive"/>
+        <result column="ISCOMPANY" property="iscompany"/>
+        <result column="MOBILE" property="mobile"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="POSITIONID" property="positionid"/>
+        <result column="ROLEID" property="roleid"/>
+        <result column="USERNAME" property="username"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutUsers">
+        SELECT 
+              ID,
+              AUTYPE,
+              DEPARTMENTID,
+              EMAIL,
+              FAMILYNAME,
+              GIVENNAME,
+              ISACTIVE,
+              ISCOMPANY,
+              MOBILE,
+              PASSWORD,
+              POSITIONID,
+              ROLEID,
+              USERNAME
+        FROM LUT_USERS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutUsers">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="departmentid > 0">AND DEPARTMENTID = #{departmentid}</if>
+              <if test="email != null">AND EMAIL = #{email}</if>
+              <if test="familyname != null">AND FAMILYNAME = #{familyname}</if>
+              <if test="givenname != null">AND GIVENNAME = #{givenname}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="iscompany > 0">AND ISCOMPANY = #{iscompany}</if>
+              <if test="mobile != null">AND MOBILE = #{mobile}</if>
+              <if test="password != null">AND PASSWORD = #{password}</if>
+              <if test="positionid > 0">AND POSITIONID = #{positionid}</if>
+              <if test="roleid != null">AND ROLEID = #{roleid}</if>
+              <if test="username != null">AND USERNAME = #{username}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutUsers">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutUsersResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_USERS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_USERS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutUsersResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_USERS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutUsersResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_USERS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutUsers" resultMap="lutUsersResultMap">
+        <include refid="selectDefaultLutUsers" />     
+        <include refid="whereDefaultLutUsers" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutUsers" resultMap="lutUsersResultMap">
+        <include refid="selectDefaultLutUsers" />     
+        <include refid="whereDefaultLutUsers" />
+        <include refid="orderByDefaultLutUsers" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutUsers">
+        INSERT INTO LUT_USERS
+            (ID, AUTYPE, DEPARTMENTID, EMAIL, FAMILYNAME, GIVENNAME, ISACTIVE, ISCOMPANY, MOBILE, PASSWORD, POSITIONID, ROLEID, USERNAME)
+        VALUES
+            (#{id}, #{autype}, #{departmentid}, #{email}, #{familyname}, #{givenname}, #{isactive}, #{iscompany}, #{mobile}, #{password}, #{positionid}, #{roleid}, #{username})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutUsers">
+        UPDATE LUT_USERS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="autype > 0">AUTYPE = #{autype},</if>
+              <if test="departmentid > 0">DEPARTMENTID = #{departmentid},</if>
+              <if test="email != null">EMAIL = #{email},</if>
+              <if test="familyname != null">FAMILYNAME = #{familyname},</if>
+              <if test="givenname != null">GIVENNAME = #{givenname},</if>
+              <if test="isactive > 0">ISACTIVE = #{isactive},</if>
+              <if test="iscompany > 0">ISCOMPANY = #{iscompany},</if>
+              <if test="mobile != null">MOBILE = #{mobile},</if>
+              <if test="password != null">PASSWORD = #{password},</if>
+              <if test="positionid > 0">POSITIONID = #{positionid},</if>
+              <if test="roleid != null">ROLEID = #{roleid},</if>
+              <if test="username != null">USERNAME = #{username},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="autype > 0">AND AUTYPE = #{autype}</if>
+              <if test="departmentid > 0">AND DEPARTMENTID = #{departmentid}</if>
+              <if test="email != null">AND EMAIL = #{email}</if>
+              <if test="familyname != null">AND FAMILYNAME = #{familyname}</if>
+              <if test="givenname != null">AND GIVENNAME = #{givenname}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="iscompany > 0">AND ISCOMPANY = #{iscompany}</if>
+              <if test="mobile != null">AND MOBILE = #{mobile}</if>
+              <if test="password != null">AND PASSWORD = #{password}</if>
+              <if test="positionid > 0">AND POSITIONID = #{positionid}</if>
+              <if test="roleid != null">AND ROLEID = #{roleid}</if>
+              <if test="username != null">AND USERNAME = #{username}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutUsers">
+        DELETE FROM LUT_USERS
+			<include refid="whereDefaultLutUsers"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

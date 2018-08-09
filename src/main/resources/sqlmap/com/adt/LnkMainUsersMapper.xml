@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkMainUsersMapper">
+    <resultMap id="lnkMainUsersResultMap" type="com.adt.model.LnkMainUsers">
+        <id column="ID" property="id"/>
+        <result column="APPID" property="appid"/>
+        <result column="POSITIONID" property="positionid"/>
+        <result column="USERID" property="userid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkMainUsers">
+        SELECT 
+              ID,
+              APPID,
+              POSITIONID,
+              USERID
+        FROM LNK_MAIN_USERS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkMainUsers">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="positionid > 0">AND POSITIONID = #{positionid}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkMainUsers">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkMainUsersResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_MAIN_USERS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_MAIN_USERS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkMainUsersResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_MAIN_USERS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkMainUsersResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_MAIN_USERS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkMainUsers" resultMap="lnkMainUsersResultMap">
+        <include refid="selectDefaultLnkMainUsers" />     
+        <include refid="whereDefaultLnkMainUsers" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkMainUsers" resultMap="lnkMainUsersResultMap">
+        <include refid="selectDefaultLnkMainUsers" />     
+        <include refid="whereDefaultLnkMainUsers" />
+        <include refid="orderByDefaultLnkMainUsers" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkMainUsers">
+        INSERT INTO LNK_MAIN_USERS
+            (ID, APPID, POSITIONID, USERID)
+        VALUES
+            (#{id}, #{appid}, #{positionid}, #{userid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkMainUsers">
+        UPDATE LNK_MAIN_USERS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="appid > 0">APPID = #{appid},</if>
+              <if test="positionid > 0">POSITIONID = #{positionid},</if>
+              <if test="userid > 0">USERID = #{userid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="positionid > 0">AND POSITIONID = #{positionid}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkMainUsers">
+        DELETE FROM LNK_MAIN_USERS
+			<include refid="whereDefaultLnkMainUsers"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

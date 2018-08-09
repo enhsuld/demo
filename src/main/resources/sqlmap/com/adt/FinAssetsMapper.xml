@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.FinAssetsMapper">
+    <resultMap id="finAssetsResultMap" type="com.adt.model.FinAssets">
+        <id column="ID" property="id"/>
+        <result column="CYEAR" property="cyear"/>
+        <result column="DATA1" property="data1"/>
+        <result column="DATA10" property="data10"/>
+        <result column="DATA11" property="data11"/>
+        <result column="DATA12" property="data12"/>
+        <result column="DATA13" property="data13"/>
+        <result column="DATA14" property="data14"/>
+        <result column="DATA15" property="data15"/>
+        <result column="DATA16" property="data16"/>
+        <result column="DATA17" property="data17"/>
+        <result column="DATA18" property="data18"/>
+        <result column="DATA19" property="data19"/>
+        <result column="DATA2" property="data2"/>
+        <result column="DATA20" property="data20"/>
+        <result column="DATA21" property="data21"/>
+        <result column="DATA22" property="data22"/>
+        <result column="DATA23" property="data23"/>
+        <result column="DATA24" property="data24"/>
+        <result column="DATA25" property="data25"/>
+        <result column="DATA26" property="data26"/>
+        <result column="DATA27" property="data27"/>
+        <result column="DATA28" property="data28"/>
+        <result column="DATA29" property="data29"/>
+        <result column="DATA3" property="data3"/>
+        <result column="DATA30" property="data30"/>
+        <result column="DATA31" property="data31"/>
+        <result column="DATA32" property="data32"/>
+        <result column="DATA33" property="data33"/>
+        <result column="DATA34" property="data34"/>
+        <result column="DATA35" property="data35"/>
+        <result column="DATA36" property="data36"/>
+        <result column="DATA37" property="data37"/>
+        <result column="DATA38" property="data38"/>
+        <result column="DATA39" property="data39"/>
+        <result column="DATA4" property="data4"/>
+        <result column="DATA5" property="data5"/>
+        <result column="DATA6" property="data6"/>
+        <result column="DATA7" property="data7"/>
+        <result column="DATA8" property="data8"/>
+        <result column="DATA9" property="data9"/>
+        <result column="ORGCATID" property="orgcatid"/>
+        <result column="ORGCODE" property="orgcode"/>
+        <result column="PLANID" property="planid"/>
+        <result column="STEPID" property="stepid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultFinAssets">
+        SELECT 
+              ID,
+              CYEAR,
+              DATA1,
+              DATA10,
+              DATA11,
+              DATA12,
+              DATA13,
+              DATA14,
+              DATA15,
+              DATA16,
+              DATA17,
+              DATA18,
+              DATA19,
+              DATA2,
+              DATA20,
+              DATA21,
+              DATA22,
+              DATA23,
+              DATA24,
+              DATA25,
+              DATA26,
+              DATA27,
+              DATA28,
+              DATA29,
+              DATA3,
+              DATA30,
+              DATA31,
+              DATA32,
+              DATA33,
+              DATA34,
+              DATA35,
+              DATA36,
+              DATA37,
+              DATA38,
+              DATA39,
+              DATA4,
+              DATA5,
+              DATA6,
+              DATA7,
+              DATA8,
+              DATA9,
+              ORGCATID,
+              ORGCODE,
+              PLANID,
+              STEPID
+        FROM FIN_ASSETS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultFinAssets">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 != null">AND DATA10 = #{data10}</if>
+              <if test="data11 != null">AND DATA11 = #{data11}</if>
+              <if test="data12 != null">AND DATA12 = #{data12}</if>
+              <if test="data13 != null">AND DATA13 = #{data13}</if>
+              <if test="data14 != null">AND DATA14 = #{data14}</if>
+              <if test="data15 != null">AND DATA15 = #{data15}</if>
+              <if test="data16 != null">AND DATA16 = #{data16}</if>
+              <if test="data17 != null">AND DATA17 = #{data17}</if>
+              <if test="data18 != null">AND DATA18 = #{data18}</if>
+              <if test="data19 != null">AND DATA19 = #{data19}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data20 != null">AND DATA20 = #{data20}</if>
+              <if test="data21 != null">AND DATA21 = #{data21}</if>
+              <if test="data22 != null">AND DATA22 = #{data22}</if>
+              <if test="data23 != null">AND DATA23 = #{data23}</if>
+              <if test="data24 != null">AND DATA24 = #{data24}</if>
+              <if test="data25 != null">AND DATA25 = #{data25}</if>
+              <if test="data26 != null">AND DATA26 = #{data26}</if>
+              <if test="data27 != null">AND DATA27 = #{data27}</if>
+              <if test="data28 != null">AND DATA28 = #{data28}</if>
+              <if test="data29 != null">AND DATA29 = #{data29}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data30 != null">AND DATA30 = #{data30}</if>
+              <if test="data31 != null">AND DATA31 = #{data31}</if>
+              <if test="data32 != null">AND DATA32 = #{data32}</if>
+              <if test="data33 != null">AND DATA33 = #{data33}</if>
+              <if test="data34 != null">AND DATA34 = #{data34}</if>
+              <if test="data35 != null">AND DATA35 = #{data35}</if>
+              <if test="data36 != null">AND DATA36 = #{data36}</if>
+              <if test="data37 != null">AND DATA37 = #{data37}</if>
+              <if test="data38 != null">AND DATA38 = #{data38}</if>
+              <if test="data39 != null">AND DATA39 = #{data39}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="data5 != null">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="data9 != null">AND DATA9 = #{data9}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultFinAssets">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="finAssetsResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM FIN_ASSETS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM FIN_ASSETS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="finAssetsResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_ASSETS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="finAssetsResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_ASSETS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="finAssets" resultMap="finAssetsResultMap">
+        <include refid="selectDefaultFinAssets" />     
+        <include refid="whereDefaultFinAssets" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="finAssets" resultMap="finAssetsResultMap">
+        <include refid="selectDefaultFinAssets" />     
+        <include refid="whereDefaultFinAssets" />
+        <include refid="orderByDefaultFinAssets" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="finAssets">
+        INSERT INTO FIN_ASSETS
+            (ID, CYEAR, DATA1, DATA10, DATA11, DATA12, DATA13, DATA14, DATA15, DATA16, DATA17, DATA18, DATA19, DATA2, DATA20, DATA21, DATA22, DATA23, DATA24, DATA25, DATA26, DATA27, DATA28, DATA29, DATA3, DATA30, DATA31, DATA32, DATA33, DATA34, DATA35, DATA36, DATA37, DATA38, DATA39, DATA4, DATA5, DATA6, DATA7, DATA8, DATA9, ORGCATID, ORGCODE, PLANID, STEPID)
+        VALUES
+            (#{id}, #{cyear}, #{data1}, #{data10}, #{data11}, #{data12}, #{data13}, #{data14}, #{data15}, #{data16}, #{data17}, #{data18}, #{data19}, #{data2}, #{data20}, #{data21}, #{data22}, #{data23}, #{data24}, #{data25}, #{data26}, #{data27}, #{data28}, #{data29}, #{data3}, #{data30}, #{data31}, #{data32}, #{data33}, #{data34}, #{data35}, #{data36}, #{data37}, #{data38}, #{data39}, #{data4}, #{data5}, #{data6}, #{data7}, #{data8}, #{data9}, #{orgcatid}, #{orgcode}, #{planid}, #{stepid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="finAssets">
+        UPDATE FIN_ASSETS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="cyear != null">CYEAR = #{cyear},</if>
+              <if test="data1 != null">DATA1 = #{data1},</if>
+              <if test="data10 != null">DATA10 = #{data10},</if>
+              <if test="data11 != null">DATA11 = #{data11},</if>
+              <if test="data12 != null">DATA12 = #{data12},</if>
+              <if test="data13 != null">DATA13 = #{data13},</if>
+              <if test="data14 != null">DATA14 = #{data14},</if>
+              <if test="data15 != null">DATA15 = #{data15},</if>
+              <if test="data16 != null">DATA16 = #{data16},</if>
+              <if test="data17 != null">DATA17 = #{data17},</if>
+              <if test="data18 != null">DATA18 = #{data18},</if>
+              <if test="data19 != null">DATA19 = #{data19},</if>
+              <if test="data2 != null">DATA2 = #{data2},</if>
+              <if test="data20 != null">DATA20 = #{data20},</if>
+              <if test="data21 != null">DATA21 = #{data21},</if>
+              <if test="data22 != null">DATA22 = #{data22},</if>
+              <if test="data23 != null">DATA23 = #{data23},</if>
+              <if test="data24 != null">DATA24 = #{data24},</if>
+              <if test="data25 != null">DATA25 = #{data25},</if>
+              <if test="data26 != null">DATA26 = #{data26},</if>
+              <if test="data27 != null">DATA27 = #{data27},</if>
+              <if test="data28 != null">DATA28 = #{data28},</if>
+              <if test="data29 != null">DATA29 = #{data29},</if>
+              <if test="data3 != null">DATA3 = #{data3},</if>
+              <if test="data30 != null">DATA30 = #{data30},</if>
+              <if test="data31 != null">DATA31 = #{data31},</if>
+              <if test="data32 != null">DATA32 = #{data32},</if>
+              <if test="data33 != null">DATA33 = #{data33},</if>
+              <if test="data34 != null">DATA34 = #{data34},</if>
+              <if test="data35 != null">DATA35 = #{data35},</if>
+              <if test="data36 != null">DATA36 = #{data36},</if>
+              <if test="data37 != null">DATA37 = #{data37},</if>
+              <if test="data38 != null">DATA38 = #{data38},</if>
+              <if test="data39 != null">DATA39 = #{data39},</if>
+              <if test="data4 != null">DATA4 = #{data4},</if>
+              <if test="data5 != null">DATA5 = #{data5},</if>
+              <if test="data6 != null">DATA6 = #{data6},</if>
+              <if test="data7 != null">DATA7 = #{data7},</if>
+              <if test="data8 != null">DATA8 = #{data8},</if>
+              <if test="data9 != null">DATA9 = #{data9},</if>
+              <if test="orgcatid > 0">ORGCATID = #{orgcatid},</if>
+              <if test="orgcode != null">ORGCODE = #{orgcode},</if>
+              <if test="planid > 0">PLANID = #{planid},</if>
+              <if test="stepid > 0">STEPID = #{stepid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 != null">AND DATA10 = #{data10}</if>
+              <if test="data11 != null">AND DATA11 = #{data11}</if>
+              <if test="data12 != null">AND DATA12 = #{data12}</if>
+              <if test="data13 != null">AND DATA13 = #{data13}</if>
+              <if test="data14 != null">AND DATA14 = #{data14}</if>
+              <if test="data15 != null">AND DATA15 = #{data15}</if>
+              <if test="data16 != null">AND DATA16 = #{data16}</if>
+              <if test="data17 != null">AND DATA17 = #{data17}</if>
+              <if test="data18 != null">AND DATA18 = #{data18}</if>
+              <if test="data19 != null">AND DATA19 = #{data19}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data20 != null">AND DATA20 = #{data20}</if>
+              <if test="data21 != null">AND DATA21 = #{data21}</if>
+              <if test="data22 != null">AND DATA22 = #{data22}</if>
+              <if test="data23 != null">AND DATA23 = #{data23}</if>
+              <if test="data24 != null">AND DATA24 = #{data24}</if>
+              <if test="data25 != null">AND DATA25 = #{data25}</if>
+              <if test="data26 != null">AND DATA26 = #{data26}</if>
+              <if test="data27 != null">AND DATA27 = #{data27}</if>
+              <if test="data28 != null">AND DATA28 = #{data28}</if>
+              <if test="data29 != null">AND DATA29 = #{data29}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data30 != null">AND DATA30 = #{data30}</if>
+              <if test="data31 != null">AND DATA31 = #{data31}</if>
+              <if test="data32 != null">AND DATA32 = #{data32}</if>
+              <if test="data33 != null">AND DATA33 = #{data33}</if>
+              <if test="data34 != null">AND DATA34 = #{data34}</if>
+              <if test="data35 != null">AND DATA35 = #{data35}</if>
+              <if test="data36 != null">AND DATA36 = #{data36}</if>
+              <if test="data37 != null">AND DATA37 = #{data37}</if>
+              <if test="data38 != null">AND DATA38 = #{data38}</if>
+              <if test="data39 != null">AND DATA39 = #{data39}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="data5 != null">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="data9 != null">AND DATA9 = #{data9}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="finAssets">
+        DELETE FROM FIN_ASSETS
+			<include refid="whereDefaultFinAssets"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

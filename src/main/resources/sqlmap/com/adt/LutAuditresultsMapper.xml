@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutAuditresultsMapper">
+    <resultMap id="lutAuditresultsResultMap" type="com.adt.model.LutAuditresults">
+        <id column="ID" property="id"/>
+        <result column="RESULTNAME" property="resultname"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutAuditresults">
+        SELECT 
+              ID,
+              RESULTNAME
+        FROM LUT_AUDITRESULTS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutAuditresults">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="resultname != null">AND RESULTNAME = #{resultname}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutAuditresults">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutAuditresultsResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_AUDITRESULTS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_AUDITRESULTS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutAuditresultsResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_AUDITRESULTS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutAuditresultsResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_AUDITRESULTS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutAuditresults" resultMap="lutAuditresultsResultMap">
+        <include refid="selectDefaultLutAuditresults" />     
+        <include refid="whereDefaultLutAuditresults" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutAuditresults" resultMap="lutAuditresultsResultMap">
+        <include refid="selectDefaultLutAuditresults" />     
+        <include refid="whereDefaultLutAuditresults" />
+        <include refid="orderByDefaultLutAuditresults" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutAuditresults">
+        INSERT INTO LUT_AUDITRESULTS
+            (ID, RESULTNAME)
+        VALUES
+            (#{id}, #{resultname})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutAuditresults">
+        UPDATE LUT_AUDITRESULTS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="resultname != null">RESULTNAME = #{resultname},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="resultname != null">AND RESULTNAME = #{resultname}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutAuditresults">
+        DELETE FROM LUT_AUDITRESULTS
+			<include refid="whereDefaultLutAuditresults"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

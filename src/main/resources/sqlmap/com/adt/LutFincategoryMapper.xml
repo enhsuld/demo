@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutFincategoryMapper">
+    <resultMap id="lutFincategoryResultMap" type="com.adt.model.LutFincategory">
+        <id column="ID" property="id"/>
+        <result column="FINCATEGORYNAME" property="fincategoryname"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutFincategory">
+        SELECT 
+              ID,
+              FINCATEGORYNAME
+        FROM LUT_FINCATEGORY
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutFincategory">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="fincategoryname != null">AND FINCATEGORYNAME = #{fincategoryname}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutFincategory">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutFincategoryResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_FINCATEGORY #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_FINCATEGORY ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutFincategoryResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_FINCATEGORY WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutFincategoryResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_FINCATEGORY order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutFincategory" resultMap="lutFincategoryResultMap">
+        <include refid="selectDefaultLutFincategory" />     
+        <include refid="whereDefaultLutFincategory" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutFincategory" resultMap="lutFincategoryResultMap">
+        <include refid="selectDefaultLutFincategory" />     
+        <include refid="whereDefaultLutFincategory" />
+        <include refid="orderByDefaultLutFincategory" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutFincategory">
+        INSERT INTO LUT_FINCATEGORY
+            (ID, FINCATEGORYNAME)
+        VALUES
+            (#{id}, #{fincategoryname})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutFincategory">
+        UPDATE LUT_FINCATEGORY
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="fincategoryname != null">FINCATEGORYNAME = #{fincategoryname},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="fincategoryname != null">AND FINCATEGORYNAME = #{fincategoryname}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutFincategory">
+        DELETE FROM LUT_FINCATEGORY
+			<include refid="whereDefaultLutFincategory"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

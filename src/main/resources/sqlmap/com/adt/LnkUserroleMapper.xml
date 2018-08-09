@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkUserroleMapper">
+    <resultMap id="lnkUserroleResultMap" type="com.adt.model.LnkUserrole">
+        <id column="ID" property="id"/>
+        <result column="ROLEID" property="roleid"/>
+        <result column="USERID" property="userid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkUserrole">
+        SELECT 
+              ID,
+              ROLEID,
+              USERID
+        FROM LNK_USERROLE
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkUserrole">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="roleid > 0">AND ROLEID = #{roleid}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkUserrole">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkUserroleResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_USERROLE #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_USERROLE ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkUserroleResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_USERROLE WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkUserroleResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_USERROLE order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkUserrole" resultMap="lnkUserroleResultMap">
+        <include refid="selectDefaultLnkUserrole" />     
+        <include refid="whereDefaultLnkUserrole" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkUserrole" resultMap="lnkUserroleResultMap">
+        <include refid="selectDefaultLnkUserrole" />     
+        <include refid="whereDefaultLnkUserrole" />
+        <include refid="orderByDefaultLnkUserrole" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkUserrole">
+        INSERT INTO LNK_USERROLE
+            (ID, ROLEID, USERID)
+        VALUES
+            (#{id}, #{roleid}, #{userid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkUserrole">
+        UPDATE LNK_USERROLE
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="roleid > 0">ROLEID = #{roleid},</if>
+              <if test="userid > 0">USERID = #{userid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="roleid > 0">AND ROLEID = #{roleid}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkUserrole">
+        DELETE FROM LNK_USERROLE
+			<include refid="whereDefaultLnkUserrole"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

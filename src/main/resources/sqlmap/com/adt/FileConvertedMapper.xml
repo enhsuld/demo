@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.FileConvertedMapper">
+    <resultMap id="fileConvertedResultMap" type="com.adt.model.FileConverted">
+        <id column="ID" property="id"/>
+        <result column="FDATE" property="fdate"/>
+        <result column="FLURL" property="flurl"/>
+        <result column="FSIZE" property="fsize"/>
+        <result column="NAME" property="name"/>
+        <result column="USERID" property="userid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultFileConverted">
+        SELECT
+              ID,
+              FDATE,
+              FLURL,
+              FSIZE,
+              NAME,
+              USERID
+        FROM FILE_CONVERTED
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultFileConverted">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="fdate != null">AND FDATE = #{fdate}</if>
+              <if test="flurl != null">AND FLURL = #{flurl}</if>
+              <if test="fsize > 0">AND FSIZE = #{fsize}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultFileConverted">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="fileConvertedResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM FILE_CONVERTED #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM FILE_CONVERTED ${searchQuery}
+        ]]>
+    </select>
+
+     <!--find by id-->
+    <select id="findById" resultMap="fileConvertedResultMap">
+        <![CDATA[
+			SELECT * FROM FILE_CONVERTED WHERE 'id' = #{id}
+        ]]>
+    </select>
+
+     <!--list by id-->
+    <select id="findAll" parameterType="com.adt.model.FileConverted" resultMap="fileConvertedResultMap">
+        <![CDATA[
+			SELECT * FROM FILE_CONVERTED
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="com.adt.model.FileConverted" resultMap="fileConvertedResultMap">
+        <include refid="selectDefaultFileConverted" />
+        <include refid="whereDefaultFileConverted" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="com.adt.model.FileConverted" resultMap="fileConvertedResultMap">
+        <include refid="selectDefaultFileConverted" />
+        <include refid="whereDefaultFileConverted" />
+        <include refid="orderByDefaultFileConverted" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="com.adt.model.FileConverted">
+        INSERT INTO FILE_CONVERTED
+            (ID, FDATE, FLURL, FSIZE, NAME, USERID)
+        VALUES
+            (#{id}, #{fdate}, #{flurl}, #{fsize}, #{name}, #{userid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="com.adt.model.FileConverted">
+        UPDATE FILE_CONVERTED
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="fdate != null">FDATE = #{fdate},</if>
+              <if test="flurl != null">FLURL = #{flurl},</if>
+              <if test="fsize > 0">FSIZE = #{fsize},</if>
+              <if test="name != null">NAME = #{name},</if>
+              <if test="userid > 0">USERID = #{userid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="fdate != null">AND FDATE = #{fdate}</if>
+              <if test="flurl != null">AND FLURL = #{flurl}</if>
+              <if test="fsize > 0">AND FSIZE = #{fsize}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="com.adt.model.FileConverted">
+        DELETE FROM FILE_CONVERTED
+			<include refid="whereDefaultFileConverted"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

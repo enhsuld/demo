@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkAuditFormsMapper">
+    <resultMap id="lnkAuditFormsResultMap" type="com.adt.model.LnkAuditForms">
+        <id column="ID" property="id"/>
+        <result column="APPID" property="appid"/>
+        <result column="DATA1" property="data1"/>
+        <result column="DATA10" property="data10"/>
+        <result column="DATA12" property="data12"/>
+        <result column="DATA13" property="data13"/>
+        <result column="DATA14" property="data14"/>
+        <result column="DATA2" property="data2"/>
+        <result column="DATA3" property="data3"/>
+        <result column="DATA4" property="data4"/>
+        <result column="DATA5" property="data5"/>
+        <result column="DATA6" property="data6"/>
+        <result column="DATA7" property="data7"/>
+        <result column="DATA8" property="data8"/>
+        <result column="DATA9" property="data9"/>
+        <result column="FORMID" property="formid"/>
+        <result column="LEVELID" property="levelid"/>
+        <result column="ORDERID" property="orderid"/>
+        <result column="PARENTID" property="parentid"/>
+        <result column="STEPID" property="stepid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkAuditForms">
+        SELECT 
+              ID,
+              APPID,
+              DATA1,
+              DATA10,
+              DATA12,
+              DATA13,
+              DATA14,
+              DATA2,
+              DATA3,
+              DATA4,
+              DATA5,
+              DATA6,
+              DATA7,
+              DATA8,
+              DATA9,
+              FORMID,
+              LEVELID,
+              ORDERID,
+              PARENTID,
+              STEPID
+        FROM LNK_AUDIT_FORMS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkAuditForms">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 > 0">AND DATA10 = #{data10}</if>
+              <if test="data12 > 0">AND DATA12 = #{data12}</if>
+              <if test="data13 > 0">AND DATA13 = #{data13}</if>
+              <if test="data14 > 0">AND DATA14 = #{data14}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 > 0">AND DATA4 = #{data4}</if>
+              <if test="data5 > 0">AND DATA5 = #{data5}</if>
+              <if test="data6 > 0">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="data9 != null">AND DATA9 = #{data9}</if>
+              <if test="formid > 0">AND FORMID = #{formid}</if>
+              <if test="levelid > 0">AND LEVELID = #{levelid}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkAuditForms">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkAuditFormsResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_AUDIT_FORMS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_AUDIT_FORMS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkAuditFormsResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_FORMS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkAuditFormsResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_FORMS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkAuditForms" resultMap="lnkAuditFormsResultMap">
+        <include refid="selectDefaultLnkAuditForms" />     
+        <include refid="whereDefaultLnkAuditForms" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkAuditForms" resultMap="lnkAuditFormsResultMap">
+        <include refid="selectDefaultLnkAuditForms" />     
+        <include refid="whereDefaultLnkAuditForms" />
+        <include refid="orderByDefaultLnkAuditForms" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkAuditForms">
+        INSERT INTO LNK_AUDIT_FORMS
+            (ID, APPID, DATA1, DATA10, DATA12, DATA13, DATA14, DATA2, DATA3, DATA4, DATA5, DATA6, DATA7, DATA8, DATA9, FORMID, LEVELID, ORDERID, PARENTID, STEPID)
+        VALUES
+            (#{id}, #{appid}, #{data1}, #{data10}, #{data12}, #{data13}, #{data14}, #{data2}, #{data3}, #{data4}, #{data5}, #{data6}, #{data7}, #{data8}, #{data9}, #{formid}, #{levelid}, #{orderid}, #{parentid}, #{stepid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkAuditForms">
+        UPDATE LNK_AUDIT_FORMS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="appid > 0">APPID = #{appid},</if>
+              <if test="data1 != null">DATA1 = #{data1},</if>
+              <if test="data10 > 0">DATA10 = #{data10},</if>
+              <if test="data12 > 0">DATA12 = #{data12},</if>
+              <if test="data13 > 0">DATA13 = #{data13},</if>
+              <if test="data14 > 0">DATA14 = #{data14},</if>
+              <if test="data2 != null">DATA2 = #{data2},</if>
+              <if test="data3 != null">DATA3 = #{data3},</if>
+              <if test="data4 > 0">DATA4 = #{data4},</if>
+              <if test="data5 > 0">DATA5 = #{data5},</if>
+              <if test="data6 > 0">DATA6 = #{data6},</if>
+              <if test="data7 != null">DATA7 = #{data7},</if>
+              <if test="data8 != null">DATA8 = #{data8},</if>
+              <if test="data9 != null">DATA9 = #{data9},</if>
+              <if test="formid > 0">FORMID = #{formid},</if>
+              <if test="levelid > 0">LEVELID = #{levelid},</if>
+              <if test="orderid > 0">ORDERID = #{orderid},</if>
+              <if test="parentid > 0">PARENTID = #{parentid},</if>
+              <if test="stepid > 0">STEPID = #{stepid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 > 0">AND DATA10 = #{data10}</if>
+              <if test="data12 > 0">AND DATA12 = #{data12}</if>
+              <if test="data13 > 0">AND DATA13 = #{data13}</if>
+              <if test="data14 > 0">AND DATA14 = #{data14}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 > 0">AND DATA4 = #{data4}</if>
+              <if test="data5 > 0">AND DATA5 = #{data5}</if>
+              <if test="data6 > 0">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="data9 != null">AND DATA9 = #{data9}</if>
+              <if test="formid > 0">AND FORMID = #{formid}</if>
+              <if test="levelid > 0">AND LEVELID = #{levelid}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkAuditForms">
+        DELETE FROM LNK_AUDIT_FORMS
+			<include refid="whereDefaultLnkAuditForms"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

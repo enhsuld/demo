@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutExpProgcategoryMapper">
+    <resultMap id="lutExpProgcategoryResultMap" type="com.adt.model.LutExpProgcategory">
+        <id column="ID" property="id"/>
+        <result column="PROGNAME" property="progname"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutExpProgcategory">
+        SELECT 
+              ID,
+              PROGNAME
+        FROM LUT_EXP_PROGCATEGORY
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutExpProgcategory">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="progname != null">AND PROGNAME = #{progname}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutExpProgcategory">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutExpProgcategoryResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_EXP_PROGCATEGORY #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_EXP_PROGCATEGORY ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutExpProgcategoryResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_EXP_PROGCATEGORY WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutExpProgcategoryResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_EXP_PROGCATEGORY order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutExpProgcategory" resultMap="lutExpProgcategoryResultMap">
+        <include refid="selectDefaultLutExpProgcategory" />     
+        <include refid="whereDefaultLutExpProgcategory" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutExpProgcategory" resultMap="lutExpProgcategoryResultMap">
+        <include refid="selectDefaultLutExpProgcategory" />     
+        <include refid="whereDefaultLutExpProgcategory" />
+        <include refid="orderByDefaultLutExpProgcategory" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutExpProgcategory">
+        INSERT INTO LUT_EXP_PROGCATEGORY
+            (ID, PROGNAME)
+        VALUES
+            (#{id}, #{progname})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutExpProgcategory">
+        UPDATE LUT_EXP_PROGCATEGORY
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="progname != null">PROGNAME = #{progname},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="progname != null">AND PROGNAME = #{progname}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutExpProgcategory">
+        DELETE FROM LUT_EXP_PROGCATEGORY
+			<include refid="whereDefaultLutExpProgcategory"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

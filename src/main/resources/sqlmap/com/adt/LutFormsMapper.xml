@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutFormsMapper">
+    <resultMap id="lutFormsResultMap" type="com.adt.model.LutForms">
+        <id column="ID" property="id"/>
+        <result column="DATA1" property="data1"/>
+        <result column="DATA10" property="data10"/>
+        <result column="DATA11" property="data11"/>
+        <result column="DATA12" property="data12"/>
+        <result column="DATA13" property="data13"/>
+        <result column="DATA2" property="data2"/>
+        <result column="DATA3" property="data3"/>
+        <result column="DATA4" property="data4"/>
+        <result column="DATA5" property="data5"/>
+        <result column="DATA6" property="data6"/>
+        <result column="DATA7" property="data7"/>
+        <result column="DATA8" property="data8"/>
+        <result column="ORDERID" property="orderid"/>
+        <result column="PARENTID" property="parentid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutForms">
+        SELECT 
+              ID,
+              DATA1,
+              DATA10,
+              DATA11,
+              DATA12,
+              DATA13,
+              DATA2,
+              DATA3,
+              DATA4,
+              DATA5,
+              DATA6,
+              DATA7,
+              DATA8,
+              ORDERID,
+              PARENTID
+        FROM LUT_FORMS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutForms">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 > 0">AND DATA10 = #{data10}</if>
+              <if test="data11 > 0">AND DATA11 = #{data11}</if>
+              <if test="data12 > 0">AND DATA12 = #{data12}</if>
+              <if test="data13 > 0">AND DATA13 = #{data13}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 > 0">AND DATA4 = #{data4}</if>
+              <if test="data5 > 0">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutForms">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutFormsResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_FORMS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_FORMS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutFormsResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_FORMS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutFormsResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_FORMS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutForms" resultMap="lutFormsResultMap">
+        <include refid="selectDefaultLutForms" />     
+        <include refid="whereDefaultLutForms" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutForms" resultMap="lutFormsResultMap">
+        <include refid="selectDefaultLutForms" />     
+        <include refid="whereDefaultLutForms" />
+        <include refid="orderByDefaultLutForms" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutForms">
+        INSERT INTO LUT_FORMS
+            (ID, DATA1, DATA10, DATA11, DATA12, DATA13, DATA2, DATA3, DATA4, DATA5, DATA6, DATA7, DATA8, ORDERID, PARENTID)
+        VALUES
+            (#{id}, #{data1}, #{data10}, #{data11}, #{data12}, #{data13}, #{data2}, #{data3}, #{data4}, #{data5}, #{data6}, #{data7}, #{data8}, #{orderid}, #{parentid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutForms">
+        UPDATE LUT_FORMS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="data1 != null">DATA1 = #{data1},</if>
+              <if test="data10 > 0">DATA10 = #{data10},</if>
+              <if test="data11 > 0">DATA11 = #{data11},</if>
+              <if test="data12 > 0">DATA12 = #{data12},</if>
+              <if test="data13 > 0">DATA13 = #{data13},</if>
+              <if test="data2 != null">DATA2 = #{data2},</if>
+              <if test="data3 != null">DATA3 = #{data3},</if>
+              <if test="data4 > 0">DATA4 = #{data4},</if>
+              <if test="data5 > 0">DATA5 = #{data5},</if>
+              <if test="data6 != null">DATA6 = #{data6},</if>
+              <if test="data7 != null">DATA7 = #{data7},</if>
+              <if test="data8 != null">DATA8 = #{data8},</if>
+              <if test="orderid > 0">ORDERID = #{orderid},</if>
+              <if test="parentid > 0">PARENTID = #{parentid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 > 0">AND DATA10 = #{data10}</if>
+              <if test="data11 > 0">AND DATA11 = #{data11}</if>
+              <if test="data12 > 0">AND DATA12 = #{data12}</if>
+              <if test="data13 > 0">AND DATA13 = #{data13}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 > 0">AND DATA4 = #{data4}</if>
+              <if test="data5 > 0">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutForms">
+        DELETE FROM LUT_FORMS
+			<include refid="whereDefaultLutForms"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

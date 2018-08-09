@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutReasonMapper">
+    <resultMap id="lutReasonResultMap" type="com.adt.model.LutReason">
+        <id column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutReason">
+        SELECT 
+              ID,
+              NAME
+        FROM LUT_REASON
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutReason">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutReason">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutReasonResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_REASON #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_REASON ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutReasonResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_REASON WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutReasonResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_REASON order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutReason" resultMap="lutReasonResultMap">
+        <include refid="selectDefaultLutReason" />     
+        <include refid="whereDefaultLutReason" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutReason" resultMap="lutReasonResultMap">
+        <include refid="selectDefaultLutReason" />     
+        <include refid="whereDefaultLutReason" />
+        <include refid="orderByDefaultLutReason" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutReason">
+        INSERT INTO LUT_REASON
+            (ID, NAME)
+        VALUES
+            (#{id}, #{name})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutReason">
+        UPDATE LUT_REASON
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="name != null">NAME = #{name},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutReason">
+        DELETE FROM LUT_REASON
+			<include refid="whereDefaultLutReason"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

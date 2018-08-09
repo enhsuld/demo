@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutMenuMapper">
+    <resultMap id="lutMenuResultMap" type="com.adt.model.LutMenu">
+        <id column="ID" property="id"/>
+        <result column="ISACTIVE" property="isactive"/>
+        <result column="MENUNAME" property="menuname"/>
+        <result column="ORDERID" property="orderid"/>
+        <result column="PARENTID" property="parentid"/>
+        <result column="STATEURL" property="stateurl"/>
+        <result column="UICON" property="uicon"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutMenu">
+        SELECT 
+              ID,
+              ISACTIVE,
+              MENUNAME,
+              ORDERID,
+              PARENTID,
+              STATEURL,
+              UICON
+        FROM LUT_MENU
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutMenu">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="menuname != null">AND MENUNAME = #{menuname}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+              <if test="stateurl != null">AND STATEURL = #{stateurl}</if>
+              <if test="uicon != null">AND UICON = #{uicon}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutMenu">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutMenuResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_MENU #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_MENU ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutMenuResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_MENU WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutMenuResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_MENU order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutMenu" resultMap="lutMenuResultMap">
+        <include refid="selectDefaultLutMenu" />     
+        <include refid="whereDefaultLutMenu" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutMenu" resultMap="lutMenuResultMap">
+        <include refid="selectDefaultLutMenu" />     
+        <include refid="whereDefaultLutMenu" />
+        <include refid="orderByDefaultLutMenu" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutMenu">
+        INSERT INTO LUT_MENU
+            (ID, ISACTIVE, MENUNAME, ORDERID, PARENTID, STATEURL, UICON)
+        VALUES
+            (#{id}, #{isactive}, #{menuname}, #{orderid}, #{parentid}, #{stateurl}, #{uicon})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutMenu">
+        UPDATE LUT_MENU
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="isactive > 0">ISACTIVE = #{isactive},</if>
+              <if test="menuname != null">MENUNAME = #{menuname},</if>
+              <if test="orderid > 0">ORDERID = #{orderid},</if>
+              <if test="parentid > 0">PARENTID = #{parentid},</if>
+              <if test="stateurl != null">STATEURL = #{stateurl},</if>
+              <if test="uicon != null">UICON = #{uicon},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="menuname != null">AND MENUNAME = #{menuname}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="parentid > 0">AND PARENTID = #{parentid}</if>
+              <if test="stateurl != null">AND STATEURL = #{stateurl}</if>
+              <if test="uicon != null">AND UICON = #{uicon}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutMenu">
+        DELETE FROM LUT_MENU
+			<include refid="whereDefaultLutMenu"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

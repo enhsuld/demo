@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutStausMapper">
+    <resultMap id="lutStausResultMap" type="com.adt.model.LutStaus">
+        <id column="ID" property="id"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="FILENAME" property="filename"/>
+        <result column="FILEURL" property="fileurl"/>
+        <result column="SAVEDNAME" property="savedname"/>
+        <result column="USERID" property="userid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutStaus">
+        SELECT 
+              ID,
+              CREATE_DATE,
+              FILENAME,
+              FILEURL,
+              SAVEDNAME,
+              USERID
+        FROM LUT_STAUS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutStaus">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="filename != null">AND FILENAME = #{filename}</if>
+              <if test="fileurl != null">AND FILEURL = #{fileurl}</if>
+              <if test="savedname != null">AND SAVEDNAME = #{savedname}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutStaus">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutStausResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_STAUS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_STAUS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutStausResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_STAUS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutStausResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_STAUS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutStaus" resultMap="lutStausResultMap">
+        <include refid="selectDefaultLutStaus" />     
+        <include refid="whereDefaultLutStaus" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutStaus" resultMap="lutStausResultMap">
+        <include refid="selectDefaultLutStaus" />     
+        <include refid="whereDefaultLutStaus" />
+        <include refid="orderByDefaultLutStaus" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutStaus">
+        INSERT INTO LUT_STAUS
+            (ID, CREATE_DATE, FILENAME, FILEURL, SAVEDNAME, USERID)
+        VALUES
+            (#{id}, #{createDate}, #{filename}, #{fileurl}, #{savedname}, #{userid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutStaus">
+        UPDATE LUT_STAUS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="createDate != null">CREATE_DATE = #{createDate},</if>
+              <if test="filename != null">FILENAME = #{filename},</if>
+              <if test="fileurl != null">FILEURL = #{fileurl},</if>
+              <if test="savedname != null">SAVEDNAME = #{savedname},</if>
+              <if test="userid > 0">USERID = #{userid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="filename != null">AND FILENAME = #{filename}</if>
+              <if test="fileurl != null">AND FILEURL = #{fileurl}</if>
+              <if test="savedname != null">AND SAVEDNAME = #{savedname}</if>
+              <if test="userid > 0">AND USERID = #{userid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutStaus">
+        DELETE FROM LUT_STAUS
+			<include refid="whereDefaultLutStaus"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

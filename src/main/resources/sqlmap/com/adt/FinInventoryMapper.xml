@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.FinInventoryMapper">
+    <resultMap id="finInventoryResultMap" type="com.adt.model.FinInventory">
+        <id column="ID" property="id"/>
+        <result column="CYEAR" property="cyear"/>
+        <result column="DATA1" property="data1"/>
+        <result column="DATA10" property="data10"/>
+        <result column="DATA11" property="data11"/>
+        <result column="DATA12" property="data12"/>
+        <result column="DATA2" property="data2"/>
+        <result column="DATA3" property="data3"/>
+        <result column="DATA4" property="data4"/>
+        <result column="DATA5" property="data5"/>
+        <result column="DATA6" property="data6"/>
+        <result column="DATA7" property="data7"/>
+        <result column="DATA8" property="data8"/>
+        <result column="DATA9" property="data9"/>
+        <result column="ORGCATID" property="orgcatid"/>
+        <result column="ORGCODE" property="orgcode"/>
+        <result column="PLANID" property="planid"/>
+        <result column="STEPID" property="stepid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultFinInventory">
+        SELECT 
+              ID,
+              CYEAR,
+              DATA1,
+              DATA10,
+              DATA11,
+              DATA12,
+              DATA2,
+              DATA3,
+              DATA4,
+              DATA5,
+              DATA6,
+              DATA7,
+              DATA8,
+              DATA9,
+              ORGCATID,
+              ORGCODE,
+              PLANID,
+              STEPID
+        FROM FIN_INVENTORY
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultFinInventory">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 != null">AND DATA10 = #{data10}</if>
+              <if test="data11 != null">AND DATA11 = #{data11}</if>
+              <if test="data12 != null">AND DATA12 = #{data12}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="data5 != null">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="data9 != null">AND DATA9 = #{data9}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultFinInventory">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="finInventoryResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM FIN_INVENTORY #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM FIN_INVENTORY ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="finInventoryResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_INVENTORY WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="finInventoryResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_INVENTORY order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="finInventory" resultMap="finInventoryResultMap">
+        <include refid="selectDefaultFinInventory" />     
+        <include refid="whereDefaultFinInventory" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="finInventory" resultMap="finInventoryResultMap">
+        <include refid="selectDefaultFinInventory" />     
+        <include refid="whereDefaultFinInventory" />
+        <include refid="orderByDefaultFinInventory" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="finInventory">
+        INSERT INTO FIN_INVENTORY
+            (ID, CYEAR, DATA1, DATA10, DATA11, DATA12, DATA2, DATA3, DATA4, DATA5, DATA6, DATA7, DATA8, DATA9, ORGCATID, ORGCODE, PLANID, STEPID)
+        VALUES
+            (#{id}, #{cyear}, #{data1}, #{data10}, #{data11}, #{data12}, #{data2}, #{data3}, #{data4}, #{data5}, #{data6}, #{data7}, #{data8}, #{data9}, #{orgcatid}, #{orgcode}, #{planid}, #{stepid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="finInventory">
+        UPDATE FIN_INVENTORY
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="cyear != null">CYEAR = #{cyear},</if>
+              <if test="data1 != null">DATA1 = #{data1},</if>
+              <if test="data10 != null">DATA10 = #{data10},</if>
+              <if test="data11 != null">DATA11 = #{data11},</if>
+              <if test="data12 != null">DATA12 = #{data12},</if>
+              <if test="data2 != null">DATA2 = #{data2},</if>
+              <if test="data3 != null">DATA3 = #{data3},</if>
+              <if test="data4 != null">DATA4 = #{data4},</if>
+              <if test="data5 != null">DATA5 = #{data5},</if>
+              <if test="data6 != null">DATA6 = #{data6},</if>
+              <if test="data7 != null">DATA7 = #{data7},</if>
+              <if test="data8 != null">DATA8 = #{data8},</if>
+              <if test="data9 != null">DATA9 = #{data9},</if>
+              <if test="orgcatid > 0">ORGCATID = #{orgcatid},</if>
+              <if test="orgcode != null">ORGCODE = #{orgcode},</if>
+              <if test="planid > 0">PLANID = #{planid},</if>
+              <if test="stepid > 0">STEPID = #{stepid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data10 != null">AND DATA10 = #{data10}</if>
+              <if test="data11 != null">AND DATA11 = #{data11}</if>
+              <if test="data12 != null">AND DATA12 = #{data12}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="data5 != null">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="data7 != null">AND DATA7 = #{data7}</if>
+              <if test="data8 != null">AND DATA8 = #{data8}</if>
+              <if test="data9 != null">AND DATA9 = #{data9}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="finInventory">
+        DELETE FROM FIN_INVENTORY
+			<include refid="whereDefaultFinInventory"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

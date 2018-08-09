@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkAuditFormCommentMapper">
+    <resultMap id="lnkAuditFormCommentResultMap" type="com.adt.model.LnkAuditFormComment">
+        <id column="ID" property="id"/>
+        <result column="APPID" property="appid"/>
+        <result column="COMTEXT" property="comtext"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="FORMID" property="formid"/>
+        <result column="USERNAME" property="username"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkAuditFormComment">
+        SELECT 
+              ID,
+              APPID,
+              COMTEXT,
+              CREATE_DATE,
+              FORMID,
+              USERNAME
+        FROM LNK_AUDIT_FORM_COMMENT
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkAuditFormComment">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="comtext != null">AND COMTEXT = #{comtext}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="formid > 0">AND FORMID = #{formid}</if>
+              <if test="username != null">AND USERNAME = #{username}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkAuditFormComment">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkAuditFormCommentResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_AUDIT_FORM_COMMENT #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_AUDIT_FORM_COMMENT ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkAuditFormCommentResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_FORM_COMMENT WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkAuditFormCommentResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_FORM_COMMENT order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkAuditFormComment" resultMap="lnkAuditFormCommentResultMap">
+        <include refid="selectDefaultLnkAuditFormComment" />     
+        <include refid="whereDefaultLnkAuditFormComment" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkAuditFormComment" resultMap="lnkAuditFormCommentResultMap">
+        <include refid="selectDefaultLnkAuditFormComment" />     
+        <include refid="whereDefaultLnkAuditFormComment" />
+        <include refid="orderByDefaultLnkAuditFormComment" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkAuditFormComment">
+        INSERT INTO LNK_AUDIT_FORM_COMMENT
+            (ID, APPID, COMTEXT, CREATE_DATE, FORMID, USERNAME)
+        VALUES
+            (#{id}, #{appid}, #{comtext}, #{createDate}, #{formid}, #{username})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkAuditFormComment">
+        UPDATE LNK_AUDIT_FORM_COMMENT
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="appid > 0">APPID = #{appid},</if>
+              <if test="comtext != null">COMTEXT = #{comtext},</if>
+              <if test="createDate != null">CREATE_DATE = #{createDate},</if>
+              <if test="formid > 0">FORMID = #{formid},</if>
+              <if test="username != null">USERNAME = #{username},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="comtext != null">AND COMTEXT = #{comtext}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="formid > 0">AND FORMID = #{formid}</if>
+              <if test="username != null">AND USERNAME = #{username}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkAuditFormComment">
+        DELETE FROM LNK_AUDIT_FORM_COMMENT
+			<include refid="whereDefaultLnkAuditFormComment"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

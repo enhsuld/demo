@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkAuditProblemsMapper">
+    <resultMap id="lnkAuditProblemsResultMap" type="com.adt.model.LnkAuditProblems">
+        <id column="ID" property="id"/>
+        <result column="ACC" property="acc"/>
+        <result column="ACC_CODE" property="accCode"/>
+        <result column="IS_ACTIVE" property="isActive"/>
+        <result column="AKT_NAME" property="aktName"/>
+        <result column="AKT_ZAALT" property="aktZaalt"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="ANSWER" property="answer"/>
+        <result column="APPID" property="appid"/>
+        <result column="COM_AKT_NAME" property="comAktName"/>
+        <result column="COM_AKT_ZAALT" property="comAktZaalt"/>
+        <result column="COM_AMOUNT" property="comAmount"/>
+        <result column="COM_MATTER" property="comMatter"/>
+        <result column="COM_RESULT" property="comResult"/>
+        <result column="COMMENT_TYPE" property="commentType"/>
+        <result column="FIN_DATE" property="finDate"/>
+        <result column="FINAL_AKT_AMOUNT" property="finalAktAmount"/>
+        <result column="FINAL_AMOUNT" property="finalAmount"/>
+        <result column="FINAL_ASH_AMOUNT" property="finalAshAmount"/>
+        <result column="FINAL_ADV_AMOUNT" property="finalAdvAmount"/>
+        <result column="FINISH" property="finish"/>
+        <result column="INS_DATE" property="insDate"/>
+        <result column="IS_MATTER" property="isMatter"/>
+        <result column="OFFER_DATE" property="offerDate"/>
+        <result column="PROBLEM" property="problem"/>
+        <result column="REPORT_ID" property="reportId"/>
+        <result column="RESULT" property="result"/>
+        <result column="STEPID" property="stepid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkAuditProblems">
+        SELECT 
+              ID,
+              ACC,
+              ACC_CODE,
+              IS_ACTIVE,
+              AKT_NAME,
+              AKT_ZAALT,
+              AMOUNT,
+              ANSWER,
+              APPID,
+              COM_AKT_NAME,
+              COM_AKT_ZAALT,
+              COM_AMOUNT,
+              COM_MATTER,
+              COM_RESULT,
+              COMMENT_TYPE,
+              FIN_DATE,
+              FINAL_AKT_AMOUNT,
+              FINAL_AMOUNT,
+              FINAL_ASH_AMOUNT,
+              FINAL_ADV_AMOUNT,
+              FINISH,
+              INS_DATE,
+              IS_MATTER,
+              OFFER_DATE,
+              PROBLEM,
+              REPORT_ID,
+              RESULT,
+              STEPID
+        FROM LNK_AUDIT_PROBLEMS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkAuditProblems">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="acc != null">AND ACC = #{acc}</if>
+              <if test="accCode > 0">AND ACC_CODE = #{accCode}</if>
+              <if test="isActive > 0">AND IS_ACTIVE = #{isActive}</if>
+              <if test="aktName != null">AND AKT_NAME = #{aktName}</if>
+              <if test="aktZaalt != null">AND AKT_ZAALT = #{aktZaalt}</if>
+              <if test="amount > 0">AND AMOUNT = #{amount}</if>
+              <if test="answer > 0">AND ANSWER = #{answer}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="comAktName != null">AND COM_AKT_NAME = #{comAktName}</if>
+              <if test="comAktZaalt != null">AND COM_AKT_ZAALT = #{comAktZaalt}</if>
+              <if test="comAmount > 0">AND COM_AMOUNT = #{comAmount}</if>
+              <if test="comMatter > 0">AND COM_MATTER = #{comMatter}</if>
+              <if test="comResult > 0">AND COM_RESULT = #{comResult}</if>
+              <if test="commentType > 0">AND COMMENT_TYPE = #{commentType}</if>
+              <if test="finDate != null">AND FIN_DATE = #{finDate}</if>
+              <if test="finalAktAmount > 0">AND FINAL_AKT_AMOUNT = #{finalAktAmount}</if>
+              <if test="finalAmount > 0">AND FINAL_AMOUNT = #{finalAmount}</if>
+              <if test="finalAshAmount > 0">AND FINAL_ASH_AMOUNT = #{finalAshAmount}</if>
+              <if test="finalAdvAmount > 0">AND FINAL_ADV_AMOUNT = #{finalAdvAmount}</if>
+              <if test="finish > 0">AND FINISH = #{finish}</if>
+              <if test="insDate != null">AND INS_DATE = #{insDate}</if>
+              <if test="isMatter > 0">AND IS_MATTER = #{isMatter}</if>
+              <if test="offerDate != null">AND OFFER_DATE = #{offerDate}</if>
+              <if test="problem != null">AND PROBLEM = #{problem}</if>
+              <if test="reportId > 0">AND REPORT_ID = #{reportId}</if>
+              <if test="result > 0">AND RESULT = #{result}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkAuditProblems">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkAuditProblemsResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_AUDIT_PROBLEMS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_AUDIT_PROBLEMS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkAuditProblemsResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_PROBLEMS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkAuditProblemsResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_AUDIT_PROBLEMS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkAuditProblems" resultMap="lnkAuditProblemsResultMap">
+        <include refid="selectDefaultLnkAuditProblems" />     
+        <include refid="whereDefaultLnkAuditProblems" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkAuditProblems" resultMap="lnkAuditProblemsResultMap">
+        <include refid="selectDefaultLnkAuditProblems" />     
+        <include refid="whereDefaultLnkAuditProblems" />
+        <include refid="orderByDefaultLnkAuditProblems" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkAuditProblems">
+        INSERT INTO LNK_AUDIT_PROBLEMS
+            (ID, ACC, ACC_CODE, IS_ACTIVE, AKT_NAME, AKT_ZAALT, AMOUNT, ANSWER, APPID, COM_AKT_NAME, COM_AKT_ZAALT, COM_AMOUNT, COM_MATTER, COM_RESULT, COMMENT_TYPE, FIN_DATE, FINAL_AKT_AMOUNT, FINAL_AMOUNT, FINAL_ASH_AMOUNT, FINAL_ADV_AMOUNT, FINISH, INS_DATE, IS_MATTER, OFFER_DATE, PROBLEM, REPORT_ID, RESULT, STEPID)
+        VALUES
+            (#{id}, #{acc}, #{accCode}, #{isActive}, #{aktName}, #{aktZaalt}, #{amount}, #{answer}, #{appid}, #{comAktName}, #{comAktZaalt}, #{comAmount}, #{comMatter}, #{comResult}, #{commentType}, #{finDate}, #{finalAktAmount}, #{finalAmount}, #{finalAshAmount}, #{finalAdvAmount}, #{finish}, #{insDate}, #{isMatter}, #{offerDate}, #{problem}, #{reportId}, #{result}, #{stepid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkAuditProblems">
+        UPDATE LNK_AUDIT_PROBLEMS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="acc != null">ACC = #{acc},</if>
+              <if test="accCode > 0">ACC_CODE = #{accCode},</if>
+              <if test="isActive > 0">IS_ACTIVE = #{isActive},</if>
+              <if test="aktName != null">AKT_NAME = #{aktName},</if>
+              <if test="aktZaalt != null">AKT_ZAALT = #{aktZaalt},</if>
+              <if test="amount > 0">AMOUNT = #{amount},</if>
+              <if test="answer > 0">ANSWER = #{answer},</if>
+              <if test="appid > 0">APPID = #{appid},</if>
+              <if test="comAktName != null">COM_AKT_NAME = #{comAktName},</if>
+              <if test="comAktZaalt != null">COM_AKT_ZAALT = #{comAktZaalt},</if>
+              <if test="comAmount > 0">COM_AMOUNT = #{comAmount},</if>
+              <if test="comMatter > 0">COM_MATTER = #{comMatter},</if>
+              <if test="comResult > 0">COM_RESULT = #{comResult},</if>
+              <if test="commentType > 0">COMMENT_TYPE = #{commentType},</if>
+              <if test="finDate != null">FIN_DATE = #{finDate},</if>
+              <if test="finalAktAmount > 0">FINAL_AKT_AMOUNT = #{finalAktAmount},</if>
+              <if test="finalAmount > 0">FINAL_AMOUNT = #{finalAmount},</if>
+              <if test="finalAshAmount > 0">FINAL_ASH_AMOUNT = #{finalAshAmount},</if>
+              <if test="finalAdvAmount > 0">FINAL_ADV_AMOUNT = #{finalAdvAmount},</if>
+              <if test="finish > 0">FINISH = #{finish},</if>
+              <if test="insDate != null">INS_DATE = #{insDate},</if>
+              <if test="isMatter > 0">IS_MATTER = #{isMatter},</if>
+              <if test="offerDate != null">OFFER_DATE = #{offerDate},</if>
+              <if test="problem != null">PROBLEM = #{problem},</if>
+              <if test="reportId > 0">REPORT_ID = #{reportId},</if>
+              <if test="result > 0">RESULT = #{result},</if>
+              <if test="stepid > 0">STEPID = #{stepid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="acc != null">AND ACC = #{acc}</if>
+              <if test="accCode > 0">AND ACC_CODE = #{accCode}</if>
+              <if test="isActive > 0">AND IS_ACTIVE = #{isActive}</if>
+              <if test="aktName != null">AND AKT_NAME = #{aktName}</if>
+              <if test="aktZaalt != null">AND AKT_ZAALT = #{aktZaalt}</if>
+              <if test="amount > 0">AND AMOUNT = #{amount}</if>
+              <if test="answer > 0">AND ANSWER = #{answer}</if>
+              <if test="appid > 0">AND APPID = #{appid}</if>
+              <if test="comAktName != null">AND COM_AKT_NAME = #{comAktName}</if>
+              <if test="comAktZaalt != null">AND COM_AKT_ZAALT = #{comAktZaalt}</if>
+              <if test="comAmount > 0">AND COM_AMOUNT = #{comAmount}</if>
+              <if test="comMatter > 0">AND COM_MATTER = #{comMatter}</if>
+              <if test="comResult > 0">AND COM_RESULT = #{comResult}</if>
+              <if test="commentType > 0">AND COMMENT_TYPE = #{commentType}</if>
+              <if test="finDate != null">AND FIN_DATE = #{finDate}</if>
+              <if test="finalAktAmount > 0">AND FINAL_AKT_AMOUNT = #{finalAktAmount}</if>
+              <if test="finalAmount > 0">AND FINAL_AMOUNT = #{finalAmount}</if>
+              <if test="finalAshAmount > 0">AND FINAL_ASH_AMOUNT = #{finalAshAmount}</if>
+              <if test="finalAdvAmount > 0">AND FINAL_ADV_AMOUNT = #{finalAdvAmount}</if>
+              <if test="finish > 0">AND FINISH = #{finish}</if>
+              <if test="insDate != null">AND INS_DATE = #{insDate}</if>
+              <if test="isMatter > 0">AND IS_MATTER = #{isMatter}</if>
+              <if test="offerDate != null">AND OFFER_DATE = #{offerDate}</if>
+              <if test="problem != null">AND PROBLEM = #{problem}</if>
+              <if test="reportId > 0">AND REPORT_ID = #{reportId}</if>
+              <if test="result > 0">AND RESULT = #{result}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkAuditProblems">
+        DELETE FROM LNK_AUDIT_PROBLEMS
+			<include refid="whereDefaultLnkAuditProblems"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

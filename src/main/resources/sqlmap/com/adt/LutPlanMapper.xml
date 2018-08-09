@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutPlanMapper">
+    <resultMap id="lutPlanResultMap" type="com.adt.model.LutPlan">
+        <id column="ID" property="id"/>
+        <result column="AUDIT_COUNT" property="auditCount"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="DISK_SIZE" property="diskSize"/>
+        <result column="ISACTIVE" property="isactive"/>
+        <result column="NAME" property="name"/>
+        <result column="PRICE" property="price"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutPlan">
+        SELECT 
+              ID,
+              AUDIT_COUNT,
+              CREATE_DATE,
+              DISK_SIZE,
+              ISACTIVE,
+              NAME,
+              PRICE
+        FROM LUT_PLAN
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutPlan">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="auditCount > 0">AND AUDIT_COUNT = #{auditCount}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="diskSize > 0">AND DISK_SIZE = #{diskSize}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+              <if test="price != null">AND PRICE = #{price}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutPlan">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutPlanResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_PLAN #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_PLAN ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutPlanResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_PLAN WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutPlanResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_PLAN order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutPlan" resultMap="lutPlanResultMap">
+        <include refid="selectDefaultLutPlan" />     
+        <include refid="whereDefaultLutPlan" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutPlan" resultMap="lutPlanResultMap">
+        <include refid="selectDefaultLutPlan" />     
+        <include refid="whereDefaultLutPlan" />
+        <include refid="orderByDefaultLutPlan" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutPlan">
+        INSERT INTO LUT_PLAN
+            (ID, AUDIT_COUNT, CREATE_DATE, DISK_SIZE, ISACTIVE, NAME, PRICE)
+        VALUES
+            (#{id}, #{auditCount}, #{createDate}, #{diskSize}, #{isactive}, #{name}, #{price})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutPlan">
+        UPDATE LUT_PLAN
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="auditCount > 0">AUDIT_COUNT = #{auditCount},</if>
+              <if test="createDate != null">CREATE_DATE = #{createDate},</if>
+              <if test="diskSize > 0">DISK_SIZE = #{diskSize},</if>
+              <if test="isactive > 0">ISACTIVE = #{isactive},</if>
+              <if test="name != null">NAME = #{name},</if>
+              <if test="price != null">PRICE = #{price},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="auditCount > 0">AND AUDIT_COUNT = #{auditCount}</if>
+              <if test="createDate != null">AND CREATE_DATE = #{createDate}</if>
+              <if test="diskSize > 0">AND DISK_SIZE = #{diskSize}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="name != null">AND NAME = #{name}</if>
+              <if test="price != null">AND PRICE = #{price}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutPlan">
+        DELETE FROM LUT_PLAN
+			<include refid="whereDefaultLutPlan"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

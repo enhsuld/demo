@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkOrgyplanreportMapper">
+    <resultMap id="lnkOrgyplanreportResultMap" type="com.adt.model.LnkOrgyplanreport">
+        <id column="ID" property="id"/>
+        <result column="AUDITRESULT" property="auditresult"/>
+        <result column="ORGID" property="orgid"/>
+        <result column="PLAN" property="plan"/>
+        <result column="REPORT" property="report"/>
+        <result column="YEAR" property="year"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkOrgyplanreport">
+        SELECT 
+              ID,
+              AUDITRESULT,
+              ORGID,
+              PLAN,
+              REPORT,
+              YEAR
+        FROM LNK_ORGYPLANREPORT
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkOrgyplanreport">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="auditresult > 0">AND AUDITRESULT = #{auditresult}</if>
+              <if test="orgid > 0">AND ORGID = #{orgid}</if>
+              <if test="plan != null">AND PLAN = #{plan}</if>
+              <if test="report != null">AND REPORT = #{report}</if>
+              <if test="year > 0">AND YEAR = #{year}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkOrgyplanreport">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkOrgyplanreportResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_ORGYPLANREPORT #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_ORGYPLANREPORT ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkOrgyplanreportResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_ORGYPLANREPORT WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkOrgyplanreportResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_ORGYPLANREPORT order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkOrgyplanreport" resultMap="lnkOrgyplanreportResultMap">
+        <include refid="selectDefaultLnkOrgyplanreport" />     
+        <include refid="whereDefaultLnkOrgyplanreport" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkOrgyplanreport" resultMap="lnkOrgyplanreportResultMap">
+        <include refid="selectDefaultLnkOrgyplanreport" />     
+        <include refid="whereDefaultLnkOrgyplanreport" />
+        <include refid="orderByDefaultLnkOrgyplanreport" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkOrgyplanreport">
+        INSERT INTO LNK_ORGYPLANREPORT
+            (ID, AUDITRESULT, ORGID, PLAN, REPORT, YEAR)
+        VALUES
+            (#{id}, #{auditresult}, #{orgid}, #{plan}, #{report}, #{year})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkOrgyplanreport">
+        UPDATE LNK_ORGYPLANREPORT
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="auditresult > 0">AUDITRESULT = #{auditresult},</if>
+              <if test="orgid > 0">ORGID = #{orgid},</if>
+              <if test="plan != null">PLAN = #{plan},</if>
+              <if test="report != null">REPORT = #{report},</if>
+              <if test="year > 0">YEAR = #{year},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="auditresult > 0">AND AUDITRESULT = #{auditresult}</if>
+              <if test="orgid > 0">AND ORGID = #{orgid}</if>
+              <if test="plan != null">AND PLAN = #{plan}</if>
+              <if test="report != null">AND REPORT = #{report}</if>
+              <if test="year > 0">AND YEAR = #{year}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkOrgyplanreport">
+        DELETE FROM LNK_ORGYPLANREPORT
+			<include refid="whereDefaultLnkOrgyplanreport"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

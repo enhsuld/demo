@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.SubAuditOrganizationsMapper">
+    <resultMap id="subAuditOrganizationsResultMap" type="com.adt.model.SubAuditOrganizations">
+        <id column="ID" property="id"/>
+        <result column="ACCEMAIL" property="accemail"/>
+        <result column="ACCFULLNAME" property="accfullname"/>
+        <result column="ACCPHONE" property="accphone"/>
+        <result column="ACCPOS" property="accpos"/>
+        <result column="ACCPROF" property="accprof"/>
+        <result column="ACCSURNAME" property="accsurname"/>
+        <result column="ACCWYEAR" property="accwyear"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="AIMAGNAME" property="aimagname"/>
+        <result column="AUDITRESULT1" property="auditresult1"/>
+        <result column="AUDITRESULT2" property="auditresult2"/>
+        <result column="AUDITRESULT3" property="auditresult3"/>
+        <result column="BANKS" property="banks"/>
+        <result column="CATEGORYID" property="categoryid"/>
+        <result column="COMWNUM" property="comwnum"/>
+        <result column="CONWNUM" property="conwnum"/>
+        <result column="CREATEDATE" property="createdate"/>
+        <result column="DEPARTMENTID" property="departmentid"/>
+        <result column="EMAIL" property="email"/>
+        <result column="FAX" property="fax"/>
+        <result column="FINCATEGORYID" property="fincategoryid"/>
+        <result column="FSORG" property="fsorg"/>
+        <result column="HEADEMAIL" property="heademail"/>
+        <result column="HEADFULLNAME" property="headfullname"/>
+        <result column="HEADORDER" property="headorder"/>
+        <result column="HEADPHONE" property="headphone"/>
+        <result column="HEADPOS" property="headpos"/>
+        <result column="HEADPROF" property="headprof"/>
+        <result column="HEADREG" property="headreg"/>
+        <result column="HEADSURNAME" property="headsurname"/>
+        <result column="HEADWNUM" property="headwnum"/>
+        <result column="HEADWYEAR" property="headwyear"/>
+        <result column="NDORG" property="ndorg"/>
+        <result column="ORGCODE" property="orgcode"/>
+        <result column="ORGNAME" property="orgname"/>
+        <result column="OTHERWNUM" property="otherwnum"/>
+        <result column="OWNDIR" property="owndir"/>
+        <result column="PARENTID" property="parentid"/>
+        <result column="PHONE" property="phone"/>
+        <result column="PLAN1" property="plan1"/>
+        <result column="PLAN2" property="plan2"/>
+        <result column="PLAN3" property="plan3"/>
+        <result column="PROGID" property="progid"/>
+        <result column="REGID" property="regid"/>
+        <result column="REPORT1" property="report1"/>
+        <result column="REPORT2" property="report2"/>
+        <result column="REPORT3" property="report3"/>
+        <result column="SERWNUM" property="serwnum"/>
+        <result column="SOUMNAME" property="soumname"/>
+        <result column="STATEBANKS" property="statebanks"/>
+        <result column="STATEDIR" property="statedir"/>
+        <result column="STATEREGID" property="stateregid"/>
+        <result column="TAXORG" property="taxorg"/>
+        <result column="WEB" property="web"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultSubAuditOrganizations">
+        SELECT 
+              ID,
+              ACCEMAIL,
+              ACCFULLNAME,
+              ACCPHONE,
+              ACCPOS,
+              ACCPROF,
+              ACCSURNAME,
+              ACCWYEAR,
+              ADDRESS,
+              AIMAGNAME,
+              AUDITRESULT1,
+              AUDITRESULT2,
+              AUDITRESULT3,
+              BANKS,
+              CATEGORYID,
+              COMWNUM,
+              CONWNUM,
+              CREATEDATE,
+              DEPARTMENTID,
+              EMAIL,
+              FAX,
+              FINCATEGORYID,
+              FSORG,
+              HEADEMAIL,
+              HEADFULLNAME,
+              HEADORDER,
+              HEADPHONE,
+              HEADPOS,
+              HEADPROF,
+              HEADREG,
+              HEADSURNAME,
+              HEADWNUM,
+              HEADWYEAR,
+              NDORG,
+              ORGCODE,
+              ORGNAME,
+              OTHERWNUM,
+              OWNDIR,
+              PARENTID,
+              PHONE,
+              PLAN1,
+              PLAN2,
+              PLAN3,
+              PROGID,
+              REGID,
+              REPORT1,
+              REPORT2,
+              REPORT3,
+              SERWNUM,
+              SOUMNAME,
+              STATEBANKS,
+              STATEDIR,
+              STATEREGID,
+              TAXORG,
+              WEB
+        FROM SUB_AUDIT_ORGANIZATIONS
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultSubAuditOrganizations">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="accemail != null">AND ACCEMAIL = #{accemail}</if>
+              <if test="accfullname != null">AND ACCFULLNAME = #{accfullname}</if>
+              <if test="accphone != null">AND ACCPHONE = #{accphone}</if>
+              <if test="accpos != null">AND ACCPOS = #{accpos}</if>
+              <if test="accprof != null">AND ACCPROF = #{accprof}</if>
+              <if test="accsurname != null">AND ACCSURNAME = #{accsurname}</if>
+              <if test="accwyear != null">AND ACCWYEAR = #{accwyear}</if>
+              <if test="address != null">AND ADDRESS = #{address}</if>
+              <if test="aimagname != null">AND AIMAGNAME = #{aimagname}</if>
+              <if test="auditresult1 > 0">AND AUDITRESULT1 = #{auditresult1}</if>
+              <if test="auditresult2 > 0">AND AUDITRESULT2 = #{auditresult2}</if>
+              <if test="auditresult3 > 0">AND AUDITRESULT3 = #{auditresult3}</if>
+              <if test="banks != null">AND BANKS = #{banks}</if>
+              <if test="categoryid > 0">AND CATEGORYID = #{categoryid}</if>
+              <if test="comwnum != null">AND COMWNUM = #{comwnum}</if>
+              <if test="conwnum != null">AND CONWNUM = #{conwnum}</if>
+              <if test="createdate != null">AND CREATEDATE = #{createdate}</if>
+              <if test="departmentid > 0">AND DEPARTMENTID = #{departmentid}</if>
+              <if test="email != null">AND EMAIL = #{email}</if>
+              <if test="fax != null">AND FAX = #{fax}</if>
+              <if test="fincategoryid > 0">AND FINCATEGORYID = #{fincategoryid}</if>
+              <if test="fsorg != null">AND FSORG = #{fsorg}</if>
+              <if test="heademail != null">AND HEADEMAIL = #{heademail}</if>
+              <if test="headfullname != null">AND HEADFULLNAME = #{headfullname}</if>
+              <if test="headorder != null">AND HEADORDER = #{headorder}</if>
+              <if test="headphone != null">AND HEADPHONE = #{headphone}</if>
+              <if test="headpos != null">AND HEADPOS = #{headpos}</if>
+              <if test="headprof != null">AND HEADPROF = #{headprof}</if>
+              <if test="headreg != null">AND HEADREG = #{headreg}</if>
+              <if test="headsurname != null">AND HEADSURNAME = #{headsurname}</if>
+              <if test="headwnum != null">AND HEADWNUM = #{headwnum}</if>
+              <if test="headwyear != null">AND HEADWYEAR = #{headwyear}</if>
+              <if test="ndorg != null">AND NDORG = #{ndorg}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="orgname != null">AND ORGNAME = #{orgname}</if>
+              <if test="otherwnum != null">AND OTHERWNUM = #{otherwnum}</if>
+              <if test="owndir != null">AND OWNDIR = #{owndir}</if>
+              <if test="parentid != null">AND PARENTID = #{parentid}</if>
+              <if test="phone != null">AND PHONE = #{phone}</if>
+              <if test="plan1 != null">AND PLAN1 = #{plan1}</if>
+              <if test="plan2 != null">AND PLAN2 = #{plan2}</if>
+              <if test="plan3 != null">AND PLAN3 = #{plan3}</if>
+              <if test="progid > 0">AND PROGID = #{progid}</if>
+              <if test="regid > 0">AND REGID = #{regid}</if>
+              <if test="report1 != null">AND REPORT1 = #{report1}</if>
+              <if test="report2 != null">AND REPORT2 = #{report2}</if>
+              <if test="report3 != null">AND REPORT3 = #{report3}</if>
+              <if test="serwnum != null">AND SERWNUM = #{serwnum}</if>
+              <if test="soumname != null">AND SOUMNAME = #{soumname}</if>
+              <if test="statebanks != null">AND STATEBANKS = #{statebanks}</if>
+              <if test="statedir != null">AND STATEDIR = #{statedir}</if>
+              <if test="stateregid != null">AND STATEREGID = #{stateregid}</if>
+              <if test="taxorg != null">AND TAXORG = #{taxorg}</if>
+              <if test="web != null">AND WEB = #{web}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultSubAuditOrganizations">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="subAuditOrganizationsResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM SUB_AUDIT_ORGANIZATIONS #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM SUB_AUDIT_ORGANIZATIONS ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="subAuditOrganizationsResultMap">
+        <![CDATA[
+			SELECT * FROM SUB_AUDIT_ORGANIZATIONS WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="subAuditOrganizationsResultMap">
+        <![CDATA[
+			SELECT * FROM SUB_AUDIT_ORGANIZATIONS order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="subAuditOrganizations" resultMap="subAuditOrganizationsResultMap">
+        <include refid="selectDefaultSubAuditOrganizations" />     
+        <include refid="whereDefaultSubAuditOrganizations" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="subAuditOrganizations" resultMap="subAuditOrganizationsResultMap">
+        <include refid="selectDefaultSubAuditOrganizations" />     
+        <include refid="whereDefaultSubAuditOrganizations" />
+        <include refid="orderByDefaultSubAuditOrganizations" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="subAuditOrganizations">
+        INSERT INTO SUB_AUDIT_ORGANIZATIONS
+            (ID, ACCEMAIL, ACCFULLNAME, ACCPHONE, ACCPOS, ACCPROF, ACCSURNAME, ACCWYEAR, ADDRESS, AIMAGNAME, AUDITRESULT1, AUDITRESULT2, AUDITRESULT3, BANKS, CATEGORYID, COMWNUM, CONWNUM, CREATEDATE, DEPARTMENTID, EMAIL, FAX, FINCATEGORYID, FSORG, HEADEMAIL, HEADFULLNAME, HEADORDER, HEADPHONE, HEADPOS, HEADPROF, HEADREG, HEADSURNAME, HEADWNUM, HEADWYEAR, NDORG, ORGCODE, ORGNAME, OTHERWNUM, OWNDIR, PARENTID, PHONE, PLAN1, PLAN2, PLAN3, PROGID, REGID, REPORT1, REPORT2, REPORT3, SERWNUM, SOUMNAME, STATEBANKS, STATEDIR, STATEREGID, TAXORG, WEB)
+        VALUES
+            (#{id}, #{accemail}, #{accfullname}, #{accphone}, #{accpos}, #{accprof}, #{accsurname}, #{accwyear}, #{address}, #{aimagname}, #{auditresult1}, #{auditresult2}, #{auditresult3}, #{banks}, #{categoryid}, #{comwnum}, #{conwnum}, #{createdate}, #{departmentid}, #{email}, #{fax}, #{fincategoryid}, #{fsorg}, #{heademail}, #{headfullname}, #{headorder}, #{headphone}, #{headpos}, #{headprof}, #{headreg}, #{headsurname}, #{headwnum}, #{headwyear}, #{ndorg}, #{orgcode}, #{orgname}, #{otherwnum}, #{owndir}, #{parentid}, #{phone}, #{plan1}, #{plan2}, #{plan3}, #{progid}, #{regid}, #{report1}, #{report2}, #{report3}, #{serwnum}, #{soumname}, #{statebanks}, #{statedir}, #{stateregid}, #{taxorg}, #{web})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="subAuditOrganizations">
+        UPDATE SUB_AUDIT_ORGANIZATIONS
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="accemail != null">ACCEMAIL = #{accemail},</if>
+              <if test="accfullname != null">ACCFULLNAME = #{accfullname},</if>
+              <if test="accphone != null">ACCPHONE = #{accphone},</if>
+              <if test="accpos != null">ACCPOS = #{accpos},</if>
+              <if test="accprof != null">ACCPROF = #{accprof},</if>
+              <if test="accsurname != null">ACCSURNAME = #{accsurname},</if>
+              <if test="accwyear != null">ACCWYEAR = #{accwyear},</if>
+              <if test="address != null">ADDRESS = #{address},</if>
+              <if test="aimagname != null">AIMAGNAME = #{aimagname},</if>
+              <if test="auditresult1 > 0">AUDITRESULT1 = #{auditresult1},</if>
+              <if test="auditresult2 > 0">AUDITRESULT2 = #{auditresult2},</if>
+              <if test="auditresult3 > 0">AUDITRESULT3 = #{auditresult3},</if>
+              <if test="banks != null">BANKS = #{banks},</if>
+              <if test="categoryid > 0">CATEGORYID = #{categoryid},</if>
+              <if test="comwnum != null">COMWNUM = #{comwnum},</if>
+              <if test="conwnum != null">CONWNUM = #{conwnum},</if>
+              <if test="createdate != null">CREATEDATE = #{createdate},</if>
+              <if test="departmentid > 0">DEPARTMENTID = #{departmentid},</if>
+              <if test="email != null">EMAIL = #{email},</if>
+              <if test="fax != null">FAX = #{fax},</if>
+              <if test="fincategoryid > 0">FINCATEGORYID = #{fincategoryid},</if>
+              <if test="fsorg != null">FSORG = #{fsorg},</if>
+              <if test="heademail != null">HEADEMAIL = #{heademail},</if>
+              <if test="headfullname != null">HEADFULLNAME = #{headfullname},</if>
+              <if test="headorder != null">HEADORDER = #{headorder},</if>
+              <if test="headphone != null">HEADPHONE = #{headphone},</if>
+              <if test="headpos != null">HEADPOS = #{headpos},</if>
+              <if test="headprof != null">HEADPROF = #{headprof},</if>
+              <if test="headreg != null">HEADREG = #{headreg},</if>
+              <if test="headsurname != null">HEADSURNAME = #{headsurname},</if>
+              <if test="headwnum != null">HEADWNUM = #{headwnum},</if>
+              <if test="headwyear != null">HEADWYEAR = #{headwyear},</if>
+              <if test="ndorg != null">NDORG = #{ndorg},</if>
+              <if test="orgcode != null">ORGCODE = #{orgcode},</if>
+              <if test="orgname != null">ORGNAME = #{orgname},</if>
+              <if test="otherwnum != null">OTHERWNUM = #{otherwnum},</if>
+              <if test="owndir != null">OWNDIR = #{owndir},</if>
+              <if test="parentid != null">PARENTID = #{parentid},</if>
+              <if test="phone != null">PHONE = #{phone},</if>
+              <if test="plan1 != null">PLAN1 = #{plan1},</if>
+              <if test="plan2 != null">PLAN2 = #{plan2},</if>
+              <if test="plan3 != null">PLAN3 = #{plan3},</if>
+              <if test="progid > 0">PROGID = #{progid},</if>
+              <if test="regid > 0">REGID = #{regid},</if>
+              <if test="report1 != null">REPORT1 = #{report1},</if>
+              <if test="report2 != null">REPORT2 = #{report2},</if>
+              <if test="report3 != null">REPORT3 = #{report3},</if>
+              <if test="serwnum != null">SERWNUM = #{serwnum},</if>
+              <if test="soumname != null">SOUMNAME = #{soumname},</if>
+              <if test="statebanks != null">STATEBANKS = #{statebanks},</if>
+              <if test="statedir != null">STATEDIR = #{statedir},</if>
+              <if test="stateregid != null">STATEREGID = #{stateregid},</if>
+              <if test="taxorg != null">TAXORG = #{taxorg},</if>
+              <if test="web != null">WEB = #{web},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="accemail != null">AND ACCEMAIL = #{accemail}</if>
+              <if test="accfullname != null">AND ACCFULLNAME = #{accfullname}</if>
+              <if test="accphone != null">AND ACCPHONE = #{accphone}</if>
+              <if test="accpos != null">AND ACCPOS = #{accpos}</if>
+              <if test="accprof != null">AND ACCPROF = #{accprof}</if>
+              <if test="accsurname != null">AND ACCSURNAME = #{accsurname}</if>
+              <if test="accwyear != null">AND ACCWYEAR = #{accwyear}</if>
+              <if test="address != null">AND ADDRESS = #{address}</if>
+              <if test="aimagname != null">AND AIMAGNAME = #{aimagname}</if>
+              <if test="auditresult1 > 0">AND AUDITRESULT1 = #{auditresult1}</if>
+              <if test="auditresult2 > 0">AND AUDITRESULT2 = #{auditresult2}</if>
+              <if test="auditresult3 > 0">AND AUDITRESULT3 = #{auditresult3}</if>
+              <if test="banks != null">AND BANKS = #{banks}</if>
+              <if test="categoryid > 0">AND CATEGORYID = #{categoryid}</if>
+              <if test="comwnum != null">AND COMWNUM = #{comwnum}</if>
+              <if test="conwnum != null">AND CONWNUM = #{conwnum}</if>
+              <if test="createdate != null">AND CREATEDATE = #{createdate}</if>
+              <if test="departmentid > 0">AND DEPARTMENTID = #{departmentid}</if>
+              <if test="email != null">AND EMAIL = #{email}</if>
+              <if test="fax != null">AND FAX = #{fax}</if>
+              <if test="fincategoryid > 0">AND FINCATEGORYID = #{fincategoryid}</if>
+              <if test="fsorg != null">AND FSORG = #{fsorg}</if>
+              <if test="heademail != null">AND HEADEMAIL = #{heademail}</if>
+              <if test="headfullname != null">AND HEADFULLNAME = #{headfullname}</if>
+              <if test="headorder != null">AND HEADORDER = #{headorder}</if>
+              <if test="headphone != null">AND HEADPHONE = #{headphone}</if>
+              <if test="headpos != null">AND HEADPOS = #{headpos}</if>
+              <if test="headprof != null">AND HEADPROF = #{headprof}</if>
+              <if test="headreg != null">AND HEADREG = #{headreg}</if>
+              <if test="headsurname != null">AND HEADSURNAME = #{headsurname}</if>
+              <if test="headwnum != null">AND HEADWNUM = #{headwnum}</if>
+              <if test="headwyear != null">AND HEADWYEAR = #{headwyear}</if>
+              <if test="ndorg != null">AND NDORG = #{ndorg}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="orgname != null">AND ORGNAME = #{orgname}</if>
+              <if test="otherwnum != null">AND OTHERWNUM = #{otherwnum}</if>
+              <if test="owndir != null">AND OWNDIR = #{owndir}</if>
+              <if test="parentid != null">AND PARENTID = #{parentid}</if>
+              <if test="phone != null">AND PHONE = #{phone}</if>
+              <if test="plan1 != null">AND PLAN1 = #{plan1}</if>
+              <if test="plan2 != null">AND PLAN2 = #{plan2}</if>
+              <if test="plan3 != null">AND PLAN3 = #{plan3}</if>
+              <if test="progid > 0">AND PROGID = #{progid}</if>
+              <if test="regid > 0">AND REGID = #{regid}</if>
+              <if test="report1 != null">AND REPORT1 = #{report1}</if>
+              <if test="report2 != null">AND REPORT2 = #{report2}</if>
+              <if test="report3 != null">AND REPORT3 = #{report3}</if>
+              <if test="serwnum != null">AND SERWNUM = #{serwnum}</if>
+              <if test="soumname != null">AND SOUMNAME = #{soumname}</if>
+              <if test="statebanks != null">AND STATEBANKS = #{statebanks}</if>
+              <if test="statedir != null">AND STATEDIR = #{statedir}</if>
+              <if test="stateregid != null">AND STATEREGID = #{stateregid}</if>
+              <if test="taxorg != null">AND TAXORG = #{taxorg}</if>
+              <if test="web != null">AND WEB = #{web}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="subAuditOrganizations">
+        DELETE FROM SUB_AUDIT_ORGANIZATIONS
+			<include refid="whereDefaultSubAuditOrganizations"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

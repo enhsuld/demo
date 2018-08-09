@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LnkMenuroleMapper">
+    <resultMap id="lnkMenuroleResultMap" type="com.adt.model.LnkMenurole">
+        <id column="ID" property="id"/>
+        <result column="MENUID" property="menuid"/>
+        <result column="ORDERID" property="orderid"/>
+        <result column="RCREATE" property="rcreate"/>
+        <result column="RDELETE" property="rdelete"/>
+        <result column="REXPORT" property="rexport"/>
+        <result column="ROLEID" property="roleid"/>
+        <result column="RREAD" property="rread"/>
+        <result column="RUPDATE" property="rupdate"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLnkMenurole">
+        SELECT 
+              ID,
+              MENUID,
+              ORDERID,
+              RCREATE,
+              RDELETE,
+              REXPORT,
+              ROLEID,
+              RREAD,
+              RUPDATE
+        FROM LNK_MENUROLE
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLnkMenurole">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="menuid > 0">AND MENUID = #{menuid}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="rcreate > 0">AND RCREATE = #{rcreate}</if>
+              <if test="rdelete > 0">AND RDELETE = #{rdelete}</if>
+              <if test="rexport > 0">AND REXPORT = #{rexport}</if>
+              <if test="roleid > 0">AND ROLEID = #{roleid}</if>
+              <if test="rread > 0">AND RREAD = #{rread}</if>
+              <if test="rupdate > 0">AND RUPDATE = #{rupdate}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLnkMenurole">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lnkMenuroleResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LNK_MENUROLE #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LNK_MENUROLE ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lnkMenuroleResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_MENUROLE WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lnkMenuroleResultMap">
+        <![CDATA[
+			SELECT * FROM LNK_MENUROLE order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lnkMenurole" resultMap="lnkMenuroleResultMap">
+        <include refid="selectDefaultLnkMenurole" />     
+        <include refid="whereDefaultLnkMenurole" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lnkMenurole" resultMap="lnkMenuroleResultMap">
+        <include refid="selectDefaultLnkMenurole" />     
+        <include refid="whereDefaultLnkMenurole" />
+        <include refid="orderByDefaultLnkMenurole" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lnkMenurole">
+        INSERT INTO LNK_MENUROLE
+            (ID, MENUID, ORDERID, RCREATE, RDELETE, REXPORT, ROLEID, RREAD, RUPDATE)
+        VALUES
+            (#{id}, #{menuid}, #{orderid}, #{rcreate}, #{rdelete}, #{rexport}, #{roleid}, #{rread}, #{rupdate})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lnkMenurole">
+        UPDATE LNK_MENUROLE
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="menuid > 0">MENUID = #{menuid},</if>
+              <if test="orderid > 0">ORDERID = #{orderid},</if>
+              <if test="rcreate > 0">RCREATE = #{rcreate},</if>
+              <if test="rdelete > 0">RDELETE = #{rdelete},</if>
+              <if test="rexport > 0">REXPORT = #{rexport},</if>
+              <if test="roleid > 0">ROLEID = #{roleid},</if>
+              <if test="rread > 0">RREAD = #{rread},</if>
+              <if test="rupdate > 0">RUPDATE = #{rupdate},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="menuid > 0">AND MENUID = #{menuid}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="rcreate > 0">AND RCREATE = #{rcreate}</if>
+              <if test="rdelete > 0">AND RDELETE = #{rdelete}</if>
+              <if test="rexport > 0">AND REXPORT = #{rexport}</if>
+              <if test="roleid > 0">AND ROLEID = #{roleid}</if>
+              <if test="rread > 0">AND RREAD = #{rread}</if>
+              <if test="rupdate > 0">AND RUPDATE = #{rupdate}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lnkMenurole">
+        DELETE FROM LNK_MENUROLE
+			<include refid="whereDefaultLnkMenurole"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

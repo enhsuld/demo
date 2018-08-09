@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.FinCtt9Mapper">
+    <resultMap id="finCtt9ResultMap" type="com.adt.model.FinCtt9">
+        <id column="ID" property="id"/>
+        <result column="CYEAR" property="cyear"/>
+        <result column="DATA1" property="data1"/>
+        <result column="DATA2" property="data2"/>
+        <result column="DATA3" property="data3"/>
+        <result column="DATA4" property="data4"/>
+        <result column="DATA5" property="data5"/>
+        <result column="DATA6" property="data6"/>
+        <result column="ORGCATID" property="orgcatid"/>
+        <result column="ORGCODE" property="orgcode"/>
+        <result column="PLANID" property="planid"/>
+        <result column="STEPID" property="stepid"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultFinCtt9">
+        SELECT 
+              ID,
+              CYEAR,
+              DATA1,
+              DATA2,
+              DATA3,
+              DATA4,
+              DATA5,
+              DATA6,
+              ORGCATID,
+              ORGCODE,
+              PLANID,
+              STEPID
+        FROM FIN_CTT9
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultFinCtt9">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="data5 != null">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultFinCtt9">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="finCtt9ResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM FIN_CTT9 #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM FIN_CTT9 ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="finCtt9ResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_CTT9 WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="finCtt9ResultMap">
+        <![CDATA[
+			SELECT * FROM FIN_CTT9 order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="finCtt9" resultMap="finCtt9ResultMap">
+        <include refid="selectDefaultFinCtt9" />     
+        <include refid="whereDefaultFinCtt9" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="finCtt9" resultMap="finCtt9ResultMap">
+        <include refid="selectDefaultFinCtt9" />     
+        <include refid="whereDefaultFinCtt9" />
+        <include refid="orderByDefaultFinCtt9" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="finCtt9">
+        INSERT INTO FIN_CTT9
+            (ID, CYEAR, DATA1, DATA2, DATA3, DATA4, DATA5, DATA6, ORGCATID, ORGCODE, PLANID, STEPID)
+        VALUES
+            (#{id}, #{cyear}, #{data1}, #{data2}, #{data3}, #{data4}, #{data5}, #{data6}, #{orgcatid}, #{orgcode}, #{planid}, #{stepid})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="finCtt9">
+        UPDATE FIN_CTT9
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="cyear != null">CYEAR = #{cyear},</if>
+              <if test="data1 != null">DATA1 = #{data1},</if>
+              <if test="data2 != null">DATA2 = #{data2},</if>
+              <if test="data3 != null">DATA3 = #{data3},</if>
+              <if test="data4 != null">DATA4 = #{data4},</if>
+              <if test="data5 != null">DATA5 = #{data5},</if>
+              <if test="data6 != null">DATA6 = #{data6},</if>
+              <if test="orgcatid > 0">ORGCATID = #{orgcatid},</if>
+              <if test="orgcode != null">ORGCODE = #{orgcode},</if>
+              <if test="planid > 0">PLANID = #{planid},</if>
+              <if test="stepid > 0">STEPID = #{stepid},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="cyear != null">AND CYEAR = #{cyear}</if>
+              <if test="data1 != null">AND DATA1 = #{data1}</if>
+              <if test="data2 != null">AND DATA2 = #{data2}</if>
+              <if test="data3 != null">AND DATA3 = #{data3}</if>
+              <if test="data4 != null">AND DATA4 = #{data4}</if>
+              <if test="data5 != null">AND DATA5 = #{data5}</if>
+              <if test="data6 != null">AND DATA6 = #{data6}</if>
+              <if test="orgcatid > 0">AND ORGCATID = #{orgcatid}</if>
+              <if test="orgcode != null">AND ORGCODE = #{orgcode}</if>
+              <if test="planid > 0">AND PLANID = #{planid}</if>
+              <if test="stepid > 0">AND STEPID = #{stepid}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="finCtt9">
+        DELETE FROM FIN_CTT9
+			<include refid="whereDefaultFinCtt9"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

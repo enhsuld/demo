@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutRoleMapper">
+    <resultMap id="lutRoleResultMap" type="com.adt.model.LutRole">
+        <id column="ID" property="id"/>
+        <result column="ACCESSID" property="accessid"/>
+        <result column="ISSTATE" property="isstate"/>
+        <result column="ROLEAUTH" property="roleauth"/>
+        <result column="ROLENAME" property="rolename"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutRole">
+        SELECT 
+              ID,
+              ACCESSID,
+              ISSTATE,
+              ROLEAUTH,
+              ROLENAME
+        FROM LUT_ROLE
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutRole">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="accessid > 0">AND ACCESSID = #{accessid}</if>
+              <if test="isstate > 0">AND ISSTATE = #{isstate}</if>
+              <if test="roleauth != null">AND ROLEAUTH = #{roleauth}</if>
+              <if test="rolename != null">AND ROLENAME = #{rolename}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutRole">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutRoleResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_ROLE #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_ROLE ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutRoleResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_ROLE WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutRoleResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_ROLE order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutRole" resultMap="lutRoleResultMap">
+        <include refid="selectDefaultLutRole" />     
+        <include refid="whereDefaultLutRole" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutRole" resultMap="lutRoleResultMap">
+        <include refid="selectDefaultLutRole" />     
+        <include refid="whereDefaultLutRole" />
+        <include refid="orderByDefaultLutRole" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutRole">
+        INSERT INTO LUT_ROLE
+            (ID, ACCESSID, ISSTATE, ROLEAUTH, ROLENAME)
+        VALUES
+            (#{id}, #{accessid}, #{isstate}, #{roleauth}, #{rolename})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutRole">
+        UPDATE LUT_ROLE
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="accessid > 0">ACCESSID = #{accessid},</if>
+              <if test="isstate > 0">ISSTATE = #{isstate},</if>
+              <if test="roleauth != null">ROLEAUTH = #{roleauth},</if>
+              <if test="rolename != null">ROLENAME = #{rolename},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="accessid > 0">AND ACCESSID = #{accessid}</if>
+              <if test="isstate > 0">AND ISSTATE = #{isstate}</if>
+              <if test="roleauth != null">AND ROLEAUTH = #{roleauth}</if>
+              <if test="rolename != null">AND ROLENAME = #{rolename}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutRole">
+        DELETE FROM LUT_ROLE
+			<include refid="whereDefaultLutRole"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>

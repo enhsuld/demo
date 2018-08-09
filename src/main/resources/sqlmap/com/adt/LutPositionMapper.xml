@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adt.dao.LutPositionMapper">
+    <resultMap id="lutPositionResultMap" type="com.adt.model.LutPosition">
+        <id column="ID" property="id"/>
+        <result column="ISACTIVE" property="isactive"/>
+        <result column="ISSTATE" property="isstate"/>
+        <result column="ORDERID" property="orderid"/>
+        <result column="POSITIONNAME" property="positionname"/>
+    </resultMap>
+
+    <!-- =================================================================== -->
+    <sql id="selectDefaultLutPosition">
+        SELECT 
+              ID,
+              ISACTIVE,
+              ISSTATE,
+              ORDERID,
+              POSITIONNAME
+        FROM LUT_POSITION
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="whereDefaultLutPosition">
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="isstate > 0">AND ISSTATE = #{isstate}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="positionname != null">AND POSITIONNAME = #{positionname}</if>
+        </where>
+    </sql>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <sql id="orderByDefaultLutPosition">
+        <if test="ORDER_COLUMN != null">
+            $ORDER_COLUMN$
+            $ORDER_TYPE$
+        </if>
+    </sql>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <select id="selectByPage" resultMap="lutPositionResultMap">
+        <![CDATA[
+        SELECT * FROM ( SELECT b.*, ROWNUM RN FROM (SELECT * FROM LUT_POSITION #{searchQuery} #{orderQuery}) b where ROWNUM
+        <= #{lastIndex}) WHERE RN > #{firstIndex}
+        ]]>
+    </select>
+    
+    <!--list size-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM LUT_POSITION ${searchQuery}
+        ]]>
+    </select>
+    
+     <!--find by id-->
+    <select id="findById" resultMap="lutPositionResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_POSITION WHERE 'id' = #{id}
+        ]]>
+    </select>
+    
+     <!--list by id-->
+    <select id="findAll" resultMap="lutPositionResultMap">
+        <![CDATA[
+			SELECT * FROM LUT_POSITION order by id desc
+        ]]>
+    </select>
+
+    <!-- =================================================================== -->
+    <select id="select" parameterType="lutPosition" resultMap="lutPositionResultMap">
+        <include refid="selectDefaultLutPosition" />     
+        <include refid="whereDefaultLutPosition" />
+    </select>
+    <!-- =================================================================== -->
+
+	<!--list-->
+    <!-- =================================================================== -->
+    <select id="list" parameterType="lutPosition" resultMap="lutPositionResultMap">
+        <include refid="selectDefaultLutPosition" />     
+        <include refid="whereDefaultLutPosition" />
+        <include refid="orderByDefaultLutPosition" />
+    </select>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <insert id="insert" parameterType="lutPosition">
+        INSERT INTO LUT_POSITION
+            (ID, ISACTIVE, ISSTATE, ORDERID, POSITIONNAME)
+        VALUES
+            (#{id}, #{isactive}, #{isstate}, #{orderid}, #{positionname})
+    </insert>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <update id="update" parameterType="lutPosition">
+        UPDATE LUT_POSITION
+        <set>
+              <if test="id > 0">ID = #{id},</if>
+              <if test="isactive > 0">ISACTIVE = #{isactive},</if>
+              <if test="isstate > 0">ISSTATE = #{isstate},</if>
+              <if test="orderid > 0">ORDERID = #{orderid},</if>
+              <if test="positionname != null">POSITIONNAME = #{positionname},</if>
+        </set>
+        <where>
+              <if test="id > 0">AND ID = #{id}</if>
+              <if test="isactive > 0">AND ISACTIVE = #{isactive}</if>
+              <if test="isstate > 0">AND ISSTATE = #{isstate}</if>
+              <if test="orderid > 0">AND ORDERID = #{orderid}</if>
+              <if test="positionname != null">AND POSITIONNAME = #{positionname}</if>
+        </where>
+    </update>
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <delete id="delete" parameterType="lutPosition">
+        DELETE FROM LUT_POSITION
+			<include refid="whereDefaultLutPosition"/>
+    </delete>
+    <!-- =================================================================== -->
+</mapper>
